@@ -30,7 +30,7 @@ class App extends Component {
 
     if (!hashParams.access_token) {
       window.location.href =
-        'https://accounts.spotify.com/authorize?client_id=fe15f7e5f0174c49b581f188294c1816&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=http://localhost:3001/callback'
+        'https://accounts.spotify.com/authorize?client_id=fe15f7e5f0174c49b581f188294c1816&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=https://spoti-found.herokuapp.com/'
     } else {
       this.props.setToken(hashParams.access_token)
       spotifyApi.setAccessToken(hashParams.access_token)

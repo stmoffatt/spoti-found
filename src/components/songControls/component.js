@@ -41,73 +41,86 @@ class SongControls extends Component {
 
   getSongIndex = () => {
     const { songs, songDetails, albumSongs, topTracks } = this.props
-    if (songDetails.trackType === 'singleTrack') {
-      const currentIndex = songs
-        .map((song, index) => {
-          if (song.track === songDetails) {
-            return index
-          }
-        })
-        .filter(item => {
-          return item !== undefined
-        })[0]
-
-      return currentIndex
-    } else if (songDetails.trackType === 'albumTrack') {
-      const currentIndex = albumSongs
-        .map((song, index) => {
-          if (song.track === songDetails) {
-            return index
-          }
-        })
-        .filter(item => {
-          return item !== undefined
-        })[0]
-
-      return currentIndex
-    } else if (songDetails.trackType === 'topTrack') {
-      const currentIndex = topTracks
-        .map((song, index) => {
-          if (song.track === songDetails) {
-            return index
-          }
-        })
-        .filter(item => {
-          return item !== undefined
-        })[0]
-
-      return currentIndex
+    if (songDetails === undefined) {
+      return
     } else {
+      if (songDetails.trackType === 'singleTrack') {
+        const currentIndex = songs
+          .map((song, index) => {
+            if (song.track === songDetails) {
+              return index
+            }
+          })
+          .filter(item => {
+            return item !== undefined
+          })[0]
+
+        return currentIndex
+      } else if (songDetails.trackType === 'albumTrack') {
+        const currentIndex = albumSongs
+          .map((song, index) => {
+            if (song.track === songDetails) {
+              return index
+            }
+          })
+          .filter(item => {
+            return item !== undefined
+          })[0]
+
+        return currentIndex
+      } else if (songDetails.trackType === 'topTrack') {
+        const currentIndex = topTracks
+          .map((song, index) => {
+            if (song.track === songDetails) {
+              return index
+            }
+          })
+          .filter(item => {
+            return item !== undefined
+          })[0]
+
+        return currentIndex
+      }
     }
   }
 
   nextSong = () => {
     const { songs, albumSongs, topTracks, audioControl, songDetails } = this.props
-    if (songDetails.trackType === 'singleTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === songs.length - 1 ? audioControl(songs[0]) : audioControl(songs[currentIndex + 1])
-    } else if (songDetails.trackType === 'albumTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === albumSongs.length - 1 ? audioControl(albumSongs[0]) : audioControl(albumSongs[currentIndex + 1])
-    } else if (songDetails.trackType === 'topTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === topTracks.length - 1 ? audioControl(topTracks[0]) : audioControl(topTracks[currentIndex + 1])
+    if (songDetails === undefined) {
+      return
     } else {
+      if (songDetails.trackType === 'singleTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === songs.length - 1 ? audioControl(songs[0]) : audioControl(songs[currentIndex + 1])
+      } else if (songDetails.trackType === 'albumTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === albumSongs.length - 1
+          ? audioControl(albumSongs[0])
+          : audioControl(albumSongs[currentIndex + 1])
+      } else if (songDetails.trackType === 'topTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === topTracks.length - 1 ? audioControl(topTracks[0]) : audioControl(topTracks[currentIndex + 1])
+      }
     }
   }
 
   prevSong = () => {
     const { songs, audioControl, albumSongs, topTracks, songDetails } = this.props
-    if (songDetails.trackType === 'singleTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === 0 ? audioControl(songs[songs.length - 1]) : audioControl(songs[currentIndex - 1])
-    } else if (songDetails.trackType === 'albumTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === 0 ? audioControl(albumSongs[albumSongs.length - 1]) : audioControl(albumSongs[currentIndex - 1])
-    } else if (songDetails.trackType === 'topTrack') {
-      let currentIndex = this.getSongIndex()
-      currentIndex === 0 ? audioControl(topTracks[topTracks.length - 1]) : audioControl(topTracks[currentIndex - 1])
+    if (songDetails === undefined) {
+      return
     } else {
+      if (songDetails.trackType === 'singleTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === 0 ? audioControl(songs[songs.length - 1]) : audioControl(songs[currentIndex - 1])
+      } else if (songDetails.trackType === 'albumTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === 0
+          ? audioControl(albumSongs[albumSongs.length - 1])
+          : audioControl(albumSongs[currentIndex - 1])
+      } else if (songDetails.trackType === 'topTrack') {
+        let currentIndex = this.getSongIndex()
+        currentIndex === 0 ? audioControl(topTracks[topTracks.length - 1]) : audioControl(topTracks[currentIndex - 1])
+      }
     }
   }
 

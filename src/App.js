@@ -69,18 +69,22 @@ class App extends Component {
 
   audioControl = song => {
     const { playSong, stopSong } = this.props
-    if (this.audio === undefined) {
-      playSong(song.track)
-      this.audio = new Audio(song.track.preview_url)
-      this.audio.volume = this.props.volume / 100
-      this.audio.play()
+    if (song === undefined) {
+      return
     } else {
-      stopSong()
-      this.audio.pause()
-      playSong(song.track)
-      this.audio = new Audio(song.track.preview_url)
-      this.audio.volume = this.props.volume / 100
-      this.audio.play()
+      if (this.audio === undefined) {
+        playSong(song.track)
+        this.audio = new Audio(song.track.preview_url)
+        this.audio.volume = this.props.volume / 100
+        this.audio.play()
+      } else {
+        stopSong()
+        this.audio.pause()
+        playSong(song.track)
+        this.audio = new Audio(song.track.preview_url)
+        this.audio.volume = this.props.volume / 100
+        this.audio.play()
+      }
     }
   }
 

@@ -12,6 +12,7 @@ const ArtWork = albumArtwork => {
             ? albumArtwork.albumImage
             : 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg'
         }
+        alt="Album Artwork"
       />
     </div>
   ) : (

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import './albumSongList.css'
 
 class AlbumSongList extends Component {
@@ -54,6 +53,7 @@ class AlbumSongList extends Component {
                     ? this.props.albumSongs[0].track.album.images[0].url
                     : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
                 }
+                alt="Album Art"
               />
             </div>
             <div className="album-side-details">

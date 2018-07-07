@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './userDetails.css'
 const UserDetails = ({ userImage, displayName }) => {
-  console.log(displayName)
   return (
     <div className="user-details-container">
       <img

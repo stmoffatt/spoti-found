@@ -6,7 +6,6 @@ const defaultState = {
 }
 
 export const artistsReducer = (state = defaultState, action) => {
-  console.log(action)
   switch (action.type) {
     case 'SET_ARTIST_IDS':
       return {

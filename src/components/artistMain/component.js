@@ -29,7 +29,6 @@ const ArtistMain = ({
   songPlaying,
 }) => {
   const renderSongs = () => {
-    console.log(topTracks)
     return topTracks.map((song, i) => {
       const buttonClass = song.track.id === songId && !songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
 
@@ -65,7 +64,6 @@ const ArtistMain = ({
   }
 
   const render = () => {
-    console.log(artist)
     return toggleMain ? (
       <AlbumSongList resumeSong={resumeSong} pauseSong={pauseSong} audioControl={audioControl} />
     ) : albums.length > 0 ? (

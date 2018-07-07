@@ -126,7 +126,6 @@ class SongControls extends Component {
 
   render() {
     const showPlay = this.props.songPaused ? 'fa fa-play-circle-o play-btn' : 'fa fa-pause-circle-o pause-btn'
-    console.log(this.props.songDetails)
     return (
       <div className="song-player-container">
         <ArtWork />

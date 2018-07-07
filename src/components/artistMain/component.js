@@ -1,8 +1,5 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ToggleDisplay from 'react-toggle-display'
 import AlbumSongList from '../albumSongList'
-import moment from 'moment'
 import './artistMain.css'
 
 const msToMinutesAndSeconds = ms => {
@@ -86,6 +83,7 @@ const ArtistMain = ({
                     ? artist.images[0].url
                     : 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg'
                 }
+                alt="Current Artist"
               />
             </div>
             <div className="current-artist-info">
@@ -119,6 +117,7 @@ const ArtistMain = ({
                           ? album.images[0].url
                           : 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg'
                       }
+                      alt="Album Artwork"
                     />
                   </div>
                 </div>

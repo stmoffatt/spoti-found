@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ArtistMain from '../artistMain'
 import './artistList.css'
@@ -45,6 +44,7 @@ const ArtistList = ({
                       ? artist.artist.images[0].url
                       : 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg'
                   }
+                  alt="Artist"
                 />
               </div>
               <div className="artist-details">

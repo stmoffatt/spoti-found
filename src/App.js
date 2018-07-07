@@ -7,12 +7,9 @@ import { setToken } from './actions/tokenActions'
 import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions'
 import './App.css'
 
-import Header from './components/header'
 import MainView from './components/mainView'
-import ArtWork from './components/artWork'
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
-import AlbumSongList from './components/albumSongList'
 import SpotifyWebApi from 'spotify-web-api-js'
 const spotifyApi = new SpotifyWebApi()
 

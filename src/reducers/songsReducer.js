@@ -22,6 +22,14 @@ export const songsReducer = (state = defaultState, action) => {
         viewType: 'songs',
       }
 
+    case 'FETCH_ARTISTS_SUCCESS':
+      return {
+        ...state,
+        myArtists: action.myArtists,
+        fetchSongsError: false,
+        viewType: 'songs',
+      }
+
     case 'FETCH_SONGS_ERROR':
       return {
         ...state,
@@ -31,7 +39,7 @@ export const songsReducer = (state = defaultState, action) => {
     case 'SEARCH_SONGS_SUCCESS':
       return {
         ...state,
-        songs: action.songs,
+        searchedSongs: action.searchedSongs,
         searchSongsError: false,
         viewType: 'search',
       }
@@ -149,6 +157,12 @@ export const songsReducer = (state = defaultState, action) => {
       return {
         ...state,
         timeElapsed: action.time,
+      }
+
+    case 'CURRENT_PLAYING_SONG':
+      return {
+        ...state,
+        CurrentPlayingSongList: action.CurrentPlayingSongList,
       }
 
     default:

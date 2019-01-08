@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import './albumSongList.css'
 
 class AlbumSongList extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000)
     const seconds = ((ms % 60000) / 1000).toFixed(0)
@@ -21,8 +25,9 @@ class AlbumSongList extends Component {
               song.track.id === this.props.songId && this.props.songPlaying && this.props.songPaused
                 ? this.props.resumeSong()
                 : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
-                  ? this.props.pauseSong()
-                  : this.props.audioControl(song)
+                ? this.props.pauseSong()
+                : this.props.audioControl(song),
+                this.props.currentPlayingSong(this.props.albumSongs)
             }}
             className={song.track.id === this.props.songId ? 'active play-song' : 'play-song'}
           >
@@ -67,6 +72,7 @@ class AlbumSongList extends Component {
           <div className="album-songs">{this.props.albumSongs && this.renderAlbumSongs()}</div>
         </div>
         <h3
+          style={{ cursor: 'pointer' }}
           onClick={e => {
             e.preventDefault()
             this.props.toggleArtistMainComponent(false)
@@ -86,6 +92,7 @@ AlbumSongList.propTypes = {
   albumIds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   albumSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fetchPlaylistSongsPending: PropTypes.bool,
   albumAudioControl: PropTypes.func,
   songPaused: PropTypes.bool,
@@ -94,6 +101,7 @@ AlbumSongList.propTypes = {
   pauseSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
   albumTracks: PropTypes.func,
+  currentPlayingSong: PropTypes.func,
   toggleArtistMainComponent: PropTypes.func,
 }
 

@@ -1,5 +1,7 @@
 const defaultState = {
-  title: 'Songs',
+  title: 'Your Library',
+  content: true,
+  searchTitle: 'Songs',
 }
 
 export const uiReducer = (state = defaultState, action) => {
@@ -8,6 +10,16 @@ export const uiReducer = (state = defaultState, action) => {
       return {
         ...state,
         title: action.title,
+      }
+    case 'UPDATE_SEARCH_TITLE':
+      return {
+        ...state,
+        searchTitle: action.searchTitle,
+      }
+    case 'UPDATE_SIDE_BAR_CONTENT':
+      return {
+        ...state,
+        content: action.content,
       }
 
     default:

@@ -6,7 +6,7 @@ import { setAlbumIds } from '../../actions/albumActions'
 import { getArtist } from '../../actions/artistActions'
 import { toggleArtistMainComponent } from '../../actions/artistActions'
 import { updateShowComponent } from '../../actions/artistActions'
-import { albumTracks } from '../../actions/songActions'
+import { albumTracks, currentPlayingSong } from '../../actions/songActions'
 
 const mapStateToProps = state => {
   return {
@@ -21,6 +21,7 @@ const mapStateToProps = state => {
     viewType: state.songsReducer.viewType,
     songPlaying: state.songsReducer.songPlaying,
     songPaused: state.songsReducer.songPaused,
+    CurrentPlayingSongList: state.songsReducer.CurrentPlayingSongList,
   }
 }
 
@@ -33,9 +34,13 @@ const mapDispatchToProps = dispatch => {
       toggleArtistMainComponent,
       updateShowComponent,
       albumTracks,
+      currentPlayingSong,
     },
     dispatch,
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(artistMain)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(artistMain)

@@ -10,6 +10,8 @@ import './App.css'
 import MainView from './components/mainView'
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
+import YourLibrary from './components/yourLibrary'
+import TrackSearch from './components/trackSearch'
 import SpotifyWebApi from 'spotify-web-api-js'
 const spotifyApi = new SpotifyWebApi()
 
@@ -32,6 +34,7 @@ class App extends Component {
       this.props.setToken(hashParams.access_token)
       spotifyApi.setAccessToken(hashParams.access_token)
     }
+    window.scrollTo(0, 0)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,12 +91,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className={this.props.content ? 'no-display' : ''}>
+          <TrackSearch />
+        </div>
         <div className="app-container">
           <div className="left-side-section">
             <SideMenu />
           </div>
 
           <div className="main-section">
+            <YourLibrary />
             <div className="main-section-container">
               <MainView
                 pauseSong={this.pauseSong}
@@ -124,12 +131,14 @@ App.propTypes = {
   stopSong: PropTypes.func,
   resumeSong: PropTypes.func,
   volume: PropTypes.number,
+  content: PropTypes.bool,
 }
 
 const mapStateToProps = state => {
   return {
     token: state.tokenReducer.token,
     volume: state.soundReducer.volume,
+    content: state.uiReducer.content,
   }
 }
 

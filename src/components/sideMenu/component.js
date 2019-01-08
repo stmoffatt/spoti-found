@@ -8,6 +8,7 @@ const SideMenu = ({
   updateHeaderTitle,
   updateViewType,
   updateShowComponent,
+  updateSearchTitle,
   fetchSongs,
   fetchAlbums,
   searchArtists,
@@ -15,41 +16,54 @@ const SideMenu = ({
   title,
   artistIds,
   toggleArtistMainComponent,
+  updateSideBarContent,
 }) => {
   const handleClick = name => {
-    updateHeaderTitle(name)
-    updateViewType(name)
-    setTimeout(() => {
-      updateShowComponent(false)
-      toggleArtistMainComponent(false)
-    }, 300)
+    if (name == 'Your Library') {
+      updateHeaderTitle(name)
+      updateSearchTitle('Songs')
+      updateViewType(name)
+      updateSideBarContent(true)
+      window.scrollTo(0, 0)
+      setTimeout(() => {
+        updateShowComponent(false)
+        toggleArtistMainComponent(false)
+      }, 300)
+    } else {
+      updateHeaderTitle(name)
+      updateSearchTitle(name)
+      updateViewType(name)
+      updateSideBarContent(false)
+      window.scrollTo(0, 0)
+      setTimeout(() => {
+        updateShowComponent(false)
+        toggleArtistMainComponent(false)
+      }, 300)
+    }
   }
 
   const renderSideMenu = () => {
     const menu = [
       {
-        name: 'Songs',
+        name: 'Your Library',
+        header: 'Your Library',
         action: fetchSongs,
       },
       {
-        name: 'Albums',
+        name: 'Search',
+        header: 'SearchedSongs',
         action: fetchAlbums,
-      },
-      {
-        name: 'Artists',
-        action: searchArtists,
-        getArtists: true,
       },
     ]
 
     return menu.map(item => {
       return (
         <li
-          key={item.name}
-          className={title === item.name ? 'active side-menu-item' : 'side-menu-item'}
+          key={item.header}
+          className={title === item.header ? 'active side-menu-item' : 'side-menu-item'}
           onClick={() => {
             item.getArtists ? item.action(token, artistIds) : item.action(token)
-            handleClick(item.name)
+            handleClick(item.header)
           }}
         >
           {item.name}
@@ -60,7 +74,6 @@ const SideMenu = ({
 
   return (
     <div className="side-bar-container">
-      <TrackSearch />
       <ul className="side-menu-container">{renderSideMenu()}</ul>
       <UserDetails />
     </div>
@@ -70,6 +83,7 @@ const SideMenu = ({
 SideMenu.propTypes = {
   updateHeaderTitle: PropTypes.func,
   updateViewType: PropTypes.func,
+  updateSearchTitle: PropTypes.func,
   fetchSongs: PropTypes.func,
   fetchAlbums: PropTypes.func,
   searchArtists: PropTypes.func,
@@ -78,6 +92,7 @@ SideMenu.propTypes = {
   title: PropTypes.string,
   updateShowComponent: PropTypes.func,
   toggleArtistMainComponent: PropTypes.func,
+  updateSideBarContent: PropTypes.func,
 }
 
 export default SideMenu

@@ -16,19 +16,23 @@ export const searchArtistsError = () => {
 
 export const searchArtists = searchText => {
   return dispatch => {
-    spotifyApi
-      .searchArtists(`${searchText}`, { limit: 24 })
-      .then(res => {
-        res.artists = res.artists.items.map(item => {
-          return {
-            artist: item,
-          }
+    if (searchText.length > 0) {
+      spotifyApi
+        .searchArtists(`${searchText}`, { limit: 24 })
+        .then(res => {
+          res.artists = res.artists.items.map(item => {
+            return {
+              artist: item,
+            }
+          })
+          dispatch(searchArtistsSuccess(res.artists))
         })
-        dispatch(searchArtistsSuccess(res.artists))
-      })
-      .catch(err => {
-        dispatch(searchArtistsError(err))
-      })
+        .catch(err => {
+          dispatch(searchArtistsError(err))
+        })
+    } else {
+      dispatch(searchArtistsSuccess(null))
+    }
   }
 }
 

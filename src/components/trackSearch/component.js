@@ -8,38 +8,35 @@ class TrackSearch extends Component {
   }
 
   updateSearchText = e => {
-    this.setState({
-      searchText: e.target.value,
-    })
+    this.setState(
+      {
+        searchText: e.target.value,
+      },
+      console.log(e.target.value),
+      this.handleChange(e.target.value),
+    )
+  }
+
+  handleChange = e => {
+    this.props.searchSongs(e)
+    this.props.searchArtists(e)
+    window.scrollTo(0, 0)
   }
 
   render() {
     return (
       <div className="track-search-container">
         <form
-          onSubmit={() => {
-            this.props.searchSongs(this.state.searchText)
-            this.props.searchArtists(this.state.searchText)
-            setTimeout(() => {
-              this.props.updateShowComponent(false)
-              this.props.toggleArtistMainComponent(false)
-            }, 300)
+          onChange={() => {
+            this.handleChange
           }}
         >
           <input onChange={this.updateSearchText} type="text" placeholder="Search..." />
           <button
-            onClick={e => {
-              e.preventDefault()
-              this.props.searchSongs(this.state.searchText)
-              this.props.searchArtists(this.state.searchText)
-              setTimeout(() => {
-                this.props.updateShowComponent(false)
-                this.props.toggleArtistMainComponent(false)
-              }, 300)
+            onChange={() => {
+              this.handleChange
             }}
-          >
-            <i className="fa fa-search search" aria-hidden="true" />
-          </button>
+          />
         </form>
       </div>
     )

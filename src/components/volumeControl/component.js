@@ -18,10 +18,34 @@ class VolumeControls extends Component {
     this.props.updateVolume(Math.ceil(e.target.value / 10) * 10)
   }
 
+  muteVolume = () => {
+    if (this.state.volume >= 1) {
+      this.setState({
+        volume: 0,
+      })
+      this.props.updateVolume(Math.ceil(0 / 10) * 10)
+    } else {
+      this.setState({
+        volume: 100,
+      })
+      this.props.updateVolume(Math.ceil(100 / 10) * 10)
+    }
+  }
+
+  renderVolumeIcon() {
+    if (this.state.volume >= 50) {
+      return <i className="fa fa-volume-up" onClick={this.muteVolume} aria-hidden="true" />
+    } else if (this.state.volume >= 1 && this.state.volume <= 49) {
+      return <i className="fa fa-volume-down" onClick={this.muteVolume} aria-hidden="true" />
+    } else {
+      return <i className="fa fa-volume-off" onClick={this.muteVolume} aria-hidden="true" />
+    }
+  }
+
   render() {
     return (
       <div className="volume-container">
-        <i className="fa fa-volume-up" aria-hidden="true" />
+        {this.renderVolumeIcon()}
         <input
           className="volume"
           type="range"

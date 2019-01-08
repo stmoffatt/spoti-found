@@ -10,6 +10,13 @@ export const fetchSongsSuccess = songs => {
   }
 }
 
+export const fetchArtistsSuccess = myArtists => {
+  return {
+    type: 'FETCH_ARTISTS_SUCCESS',
+    myArtists,
+  }
+}
+
 export const fetchSongsError = () => {
   return {
     type: 'FETCH_SONGS_ERROR',
@@ -32,6 +39,10 @@ export const fetchSongs = () => {
 
         dispatch(setArtistIds(artistIds))
 
+        spotifyApi.getArtists([`${artistIds}`]).then(data => {
+          dispatch(fetchArtistsSuccess(data))
+        })
+
         const newRes = res.items.map(item => {
           item = Object.assign({ added_at: item.added_at }, item.track)
           return {
@@ -45,7 +56,6 @@ export const fetchSongs = () => {
             track: item,
           }
         })
-
         dispatch(fetchSongsSuccess(res.items))
       })
       .catch(err => {
@@ -54,10 +64,10 @@ export const fetchSongs = () => {
   }
 }
 
-export const searchSongsSuccess = songs => {
+export const searchSongsSuccess = searchedSongs => {
   return {
     type: 'SEARCH_SONGS_SUCCESS',
-    songs,
+    searchedSongs,
   }
 }
 
@@ -69,20 +79,24 @@ export const searchSongsError = () => {
 
 export const searchSongs = (searchText, accessToken) => {
   return dispatch => {
-    spotifyApi
-      .searchTracks(`${searchText}`)
-      .then(res => {
-        res.items = res.tracks.items.map(item => {
-          item = Object.assign({ trackType: 'singleTrack' }, item)
-          return {
-            track: item,
-          }
+    if (searchText.length > 0) {
+      spotifyApi
+        .searchTracks(`${searchText}`)
+        .then(res => {
+          res.items = res.tracks.items.map(item => {
+            item = Object.assign({ trackType: 'singleTrack' }, item)
+            return {
+              track: item,
+            }
+          })
+          dispatch(searchSongsSuccess(res.items))
         })
-        dispatch(searchSongsSuccess(res.items))
-      })
-      .catch(err => {
-        dispatch(fetchSongsError(err))
-      })
+        .catch(err => {
+          dispatch(fetchSongsError(err))
+        })
+    } else {
+      dispatch(searchSongsSuccess(null))
+    }
   }
 }
 
@@ -162,6 +176,13 @@ export const playSong = song => {
   return {
     type: 'PLAY_SONG',
     song,
+  }
+}
+
+export const currentPlayingSong = CurrentPlayingSongList => {
+  return {
+    type: 'CURRENT_PLAYING_SONG',
+    CurrentPlayingSongList,
   }
 }
 

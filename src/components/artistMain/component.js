@@ -25,6 +25,7 @@ const ArtistMain = ({
   viewType,
   songPaused,
   songPlaying,
+  currentPlayingSong,
 }) => {
   const renderSongs = () => {
     return topTracks.map((song, i) => {
@@ -37,8 +38,9 @@ const ArtistMain = ({
               song.track.id === songId && songPlaying && songPaused
                 ? resumeSong()
                 : songPlaying && !songPaused && song.track.id === songId
-                  ? pauseSong()
-                  : audioControl(song)
+                ? pauseSong()
+                : audioControl(song),
+                currentPlayingSong(topTracks)
             }}
             className="play-song"
           >
@@ -142,6 +144,7 @@ ArtistMain.propTypes = {
   artist: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   topTracks: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   viewType: PropTypes.string,
   toggleMain: PropTypes.bool,
   token: PropTypes.string,
@@ -155,6 +158,7 @@ ArtistMain.propTypes = {
   updateShowComponent: PropTypes.func,
   albumTracks: PropTypes.func,
   songPaused: PropTypes.bool,
+  currentPlayingSong: PropTypes.func,
   songPlaying: PropTypes.bool,
 }
 

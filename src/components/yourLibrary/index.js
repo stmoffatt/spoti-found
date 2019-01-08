@@ -1,10 +1,10 @@
-import SideMenu from './component'
+import YourLibrary from './component'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchSongs, updateViewType } from '../../actions/songActions'
-import { fetchAlbums } from '../../actions/albumActions'
+import { fetchSongs, updateViewType, searchSongs } from '../../actions/songActions'
+import { fetchAlbums, searchAlbums } from '../../actions/albumActions'
 import { searchArtists } from '../../actions/artistActions'
-import { updateHeaderTitle, updateSideBarContent, updateSearchTitle } from '../../actions/uiActions'
+import { updateHeaderTitle, updateSearchTitle } from '../../actions/uiActions'
 import { updateShowComponent } from '../../actions/artistActions'
 import { toggleArtistMainComponent } from '../../actions/artistActions'
 
@@ -14,6 +14,8 @@ const mapStateToProps = state => {
     token: state.tokenReducer.token ? state.tokenReducer.token : '',
     artistIds: state.artistsReducer.artistIds,
     title: state.uiReducer.title,
+    searchTitle: state.uiReducer.searchTitle,
+    content: state.uiReducer.content,
   }
 }
 
@@ -22,13 +24,14 @@ const mapDispatchToProps = dispatch => {
     {
       fetchSongs,
       fetchAlbums,
+      searchAlbums,
+      searchSongs,
       searchArtists,
       updateViewType,
-      updateSearchTitle,
       updateHeaderTitle,
+      updateSearchTitle,
       updateShowComponent,
       toggleArtistMainComponent,
-      updateSideBarContent,
     },
     dispatch,
   )
@@ -37,4 +40,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SideMenu)
+)(YourLibrary)

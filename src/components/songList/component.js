@@ -9,7 +9,6 @@ class SongList extends Component {
       this.props.fetchSongs()
     }
   }
-
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000)
     const seconds = ((ms % 60000) / 1000).toFixed(0)
@@ -17,58 +16,63 @@ class SongList extends Component {
   }
 
   renderSongs() {
-    return this.props.songs.map((song, i) => {
-      const buttonClass =
-        song.track.id === this.props.songId && !this.props.songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
+    return this.props.songs.length > 0 ? (
+      this.props.songs.map((song, i) => {
+        const buttonClass =
+          song.track.id === this.props.songId && !this.props.songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
 
-      return (
-        <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={i}>
-          <div
-            onClick={() => {
-              song.track.id === this.props.songId && this.props.songPlaying && this.props.songPaused
-                ? this.props.resumeSong()
-                : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
-                  ? this.props.pauseSong()
-                  : this.props.audioControl(song)
-            }}
-            className="play-song"
-          >
-            <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
-          </div>
-
-          {this.props.viewType !== 'songs' && (
-            <p
-              className="add-song"
+        return (
+          <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={i}>
+            <div
               onClick={() => {
-                this.props.addSongToLibrary(song.track.id)
+                song.track.id === this.props.songId && this.props.songPlaying && this.props.songPaused
+                  ? this.props.resumeSong()
+                  : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
+                  ? this.props.pauseSong()
+                  : this.props.audioControl(song),
+                  this.props.currentPlayingSong(this.props.songs)
               }}
+              className="play-song"
             >
-              {this.props.songAddedId === song.track.id ? <span> </span> : <p>+</p>}
-            </p>
-          )}
+              <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
+            </div>
 
-          <div className="song-title">
-            <p>{song.track.name}</p>
-          </div>
+            {this.props.viewType !== 'songs' && (
+              <p
+                className="add-song"
+                onClick={() => {
+                  this.props.addSongToLibrary(song.track.id)
+                }}
+              >
+                {this.props.songAddedId === song.track.id ? <span> </span> : <p>+</p>}
+              </p>
+            )}
 
-          <div className="song-artist">
-            <p>{song.track.artists[0].name}</p>
-          </div>
+            <div className="song-title">
+              <p>{song.track.name}</p>
+            </div>
 
-          <div className="song-album">
-            <p>{song.track.album.name}</p>
-          </div>
+            <div className="song-artist">
+              <p>{song.track.artists[0].name}</p>
+            </div>
 
-          <div className="song-added">
-            <p>{moment(song.added_at).format('YYYY-MM-DD')}</p>
-          </div>
+            <div className="song-album">
+              <p>{song.track.album.name}</p>
+            </div>
 
-          <div className="song-length">
-            <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
-          </div>
-        </li>
-      )
-    })
+            <div className="song-added">
+              <p>{moment(song.added_at).format('YYYY-MM-DD')}</p>
+            </div>
+
+            <div className="song-length">
+              <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
+            </div>
+          </li>
+        )
+      })
+    ) : (
+      <span />
+    )
   }
 
   render() {
@@ -105,6 +109,7 @@ SongList.propTypes = {
   songAddedId: PropTypes.string,
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   songs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fetchSongsError: PropTypes.bool,
   fetchSongs: PropTypes.func,
   audioControl: PropTypes.func,
@@ -112,6 +117,7 @@ SongList.propTypes = {
   songPlaying: PropTypes.bool,
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
+  currentPlayingSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
 }
 

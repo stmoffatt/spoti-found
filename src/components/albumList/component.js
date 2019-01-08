@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './albumList.css'
-
-const AlbumList = ({ songs, audioControl }) => {
-  const renderAlbums = () => {
-    return songs.map((song, i) => {
+class AlbumList extends Component {
+  renderAlbums = () => {
+    return this.props.songs.map((song, i) => {
       return (
         <li
           onClick={() => {
-            audioControl(song)
+            this.props.audioControl(song)
           }}
           className="album-item"
           key={i}
@@ -30,10 +29,10 @@ const AlbumList = ({ songs, audioControl }) => {
       )
     })
   }
-
-  return <ul className="album-view-container">{renderAlbums()}</ul>
+  render() {
+    return <ul className="album-view-container">{this.renderAlbums()}</ul>
+  }
 }
-
 AlbumList.propTypes = {
   songs: PropTypes.array,
   audioControl: PropTypes.func,

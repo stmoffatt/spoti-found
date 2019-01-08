@@ -14,6 +14,7 @@ const mapStateToProps = state => {
     songs: state.songsReducer.songs,
     topTracks: state.songsReducer.topTracks,
     albumSongs: state.songsReducer.albumSongs,
+    CurrentPlayingSongList: state.songsReducer.CurrentPlayingSongList,
   }
 }
 

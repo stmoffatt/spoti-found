@@ -60,10 +60,6 @@ class SongList extends Component {
               <p>{song.track.album.name}</p>
             </div>
 
-            <div className="song-added">
-              <p>{moment(song.added_at).format('YYYY-MM-DD')}</p>
-            </div>
-
             <div className="song-length">
               <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
             </div>
@@ -87,9 +83,6 @@ class SongList extends Component {
           </div>
           <div className="song-album-header">
             <p>Album</p>
-          </div>
-          <div className="song-added-header">
-            <i className="fa fa-calendar-plus-o" aria-hidden="true" />
           </div>
           <div className="song-length-header">
             <p>

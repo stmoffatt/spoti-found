@@ -49,19 +49,19 @@ class SongList extends Component {
             )}
 
             <div className="song-title">
-              <p>{song.track.name}</p>
+              <p className="tracklist-margin-left">{song.track.name}</p>
             </div>
 
             <div className="song-artist">
-              <p>{song.track.artists[0].name}</p>
+              <p className="tracklist-margin-left">{song.track.artists[0].name}</p>
             </div>
 
             <div className="song-album">
-              <p>{song.track.album.name}</p>
+              <p className="tracklist-margin-left">{song.track.album.name}</p>
             </div>
 
-            <div className="song-length">
-              <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
+            <div className="song-length song-length-width">
+              <p className="tracklist-margin-left">{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
             </div>
           </li>
         )

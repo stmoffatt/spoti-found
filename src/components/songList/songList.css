@@ -98,9 +98,13 @@
   line-height: 42px;
 }
 
-.song-length,
 .song-length-header {
   width: 60px;
+  text-align: center;
+}
+
+.song-length.song-length-width {
+  width: 80px;
   text-align: center;
 }
 
@@ -165,4 +169,8 @@
 
 .add-song .fa:hover {
   -webkit-text-stroke: 2px rgb(24, 24, 24);
+}
+
+.tracklist-margin-left {
+  margin-left: 20px;
 }

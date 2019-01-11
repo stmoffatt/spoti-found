@@ -31,16 +31,15 @@ class SearchSongList extends Component {
             <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
           </div>
 
-          {this.props.viewType !== 'songs' && (
-            <p
-              className="add-song"
-              onClick={() => {
-                this.props.addSongToLibrary(song.track.id)
-              }}
-            >
-              {this.props.songAddedId === song.track.id ? <span> </span> : <p>+</p>}
-            </p>
-          )}
+          <p
+            className="add-song"
+            onClick={() => {
+              this.props.addSongToLibrary(song.track.id)
+              this.props.fetchSongs()
+            }}
+          >
+            {this.props.savedSongIds.some(r => song.track.id.includes(r)) === true ? <span> </span> : <p>+</p>}
+          </p>
 
           <div className="song-title">
             <p>{song.track.name}</p>
@@ -94,6 +93,7 @@ SearchSongList.propTypes = {
   token: PropTypes.string,
   songAddedId: PropTypes.string,
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  savedSongIds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchedSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fetchSongsError: PropTypes.bool,

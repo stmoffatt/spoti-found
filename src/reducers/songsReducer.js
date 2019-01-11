@@ -8,6 +8,11 @@ const defaultState = {
 
 export const songsReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case 'SET_SONG_IDS':
+      return {
+        ...state,
+        savedSongIds: action.savedSongIds,
+      }
     case 'UPDATE_VIEW_TYPE':
       return {
         ...state,

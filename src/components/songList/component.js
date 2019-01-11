@@ -37,17 +37,6 @@ class SongList extends Component {
               <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
             </div>
 
-            {this.props.viewType !== 'songs' && (
-              <p
-                className="add-song"
-                onClick={() => {
-                  this.props.addSongToLibrary(song.track.id)
-                }}
-              >
-                {this.props.songAddedId === song.track.id ? <span> </span> : <p>+</p>}
-              </p>
-            )}
-
             <div className="song-title">
               <p className="tracklist-margin-left">{song.track.name}</p>
             </div>

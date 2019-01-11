@@ -23,10 +23,17 @@ export const fetchSongsError = () => {
   }
 }
 
+export const setSongIds = savedSongIds => {
+  return {
+    type: 'SET_SONG_IDS',
+    savedSongIds,
+  }
+}
+
 export const fetchSongs = () => {
   return dispatch => {
     spotifyApi
-      .getMySavedTracks()
+      .getMySavedTracks({ limit: 50 })
       .then(res => {
         // get all artist ids and remove duplicates
         let artistIds = uniqBy(res.items, item => {
@@ -37,7 +44,14 @@ export const fetchSongs = () => {
           })
           .join(',')
 
+        let savedSongIds = uniqBy(res.items, item => {
+          return item.track.id
+        }).map(item => {
+          return item.track.id
+        })
+
         dispatch(setArtistIds(artistIds))
+        dispatch(setSongIds(savedSongIds))
 
         spotifyApi.getArtists([`${artistIds}`]).then(data => {
           dispatch(fetchArtistsSuccess(data))

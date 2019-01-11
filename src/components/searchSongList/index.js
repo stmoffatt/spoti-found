@@ -12,6 +12,7 @@ const mapStateToProps = state => {
     songPlaying: state.songsReducer.songPlaying,
     songPaused: state.songsReducer.songPaused,
     songId: state.songsReducer.songId,
+    savedSongIds: state.songsReducer.savedSongIds,
     songAddedId: state.userReducer.songId || '',
     viewType: state.songsReducer.viewType,
     CurrentPlayingSongList: state.songsReducer.CurrentPlayingSongList,

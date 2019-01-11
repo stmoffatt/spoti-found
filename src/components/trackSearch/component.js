@@ -12,7 +12,6 @@ class TrackSearch extends Component {
       {
         searchText: e.target.value,
       },
-      console.log(e.target.value),
       this.handleChange(e.target.value),
     )
   }

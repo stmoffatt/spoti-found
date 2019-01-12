@@ -52,6 +52,14 @@ class SongList extends Component {
             <div className="song-length song-length-width">
               <p className="tracklist-margin-left">{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
             </div>
+
+            <p
+              onClick={() => {
+                this.props.deleteTrack(song.track.id)
+              }}
+            >
+              -
+            </p>
           </li>
         )
       })
@@ -98,6 +106,7 @@ SongList.propTypes = {
   songPaused: PropTypes.bool,
   songPlaying: PropTypes.bool,
   resumeSong: PropTypes.func,
+  deleteTrack: PropTypes.func,
   pauseSong: PropTypes.func,
   currentPlayingSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,

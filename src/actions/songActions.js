@@ -180,6 +180,15 @@ export const topTracks = (artistId, countryId) => {
   }
 }
 
+export const deleteTrack = trackIds => {
+  return dispatch => {
+    console.log([`${trackIds}`])
+    spotifyApi.removeFromMySavedTracks([`${trackIds}`]).then(data => {
+      dispatch(fetchSongs())
+    })
+  }
+}
+
 export const topTracksError = () => {
   return {
     type: 'TOP_TRACKS_ERROR',

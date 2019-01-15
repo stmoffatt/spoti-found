@@ -93,7 +93,7 @@ SearchSongList.propTypes = {
   token: PropTypes.string,
   songAddedId: PropTypes.string,
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  savedSongIds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  savedSongIds: PropTypes.array,
   searchedSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fetchSongsError: PropTypes.bool,

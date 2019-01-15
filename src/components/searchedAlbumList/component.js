@@ -38,7 +38,7 @@ class SearchedAlbumList extends Component {
   }
 }
 SearchedAlbumList.propTypes = {
-  songs: PropTypes.array,
+  songs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   audioControl: PropTypes.func,
 }
 

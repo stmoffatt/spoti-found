@@ -63,7 +63,7 @@ const MyArtistList = ({
 }
 
 MyArtistList.propTypes = {
-  myArtists: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  myArtists: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   albums: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   user: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   searchArtists: PropTypes.func,

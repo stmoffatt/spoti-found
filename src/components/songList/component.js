@@ -52,14 +52,14 @@ class SongList extends Component {
             <div className="song-length song-length-width">
               <p className="tracklist-margin-left">{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
             </div>
-
-            <p
+            <div
+              className="delete-button"
               onClick={() => {
                 this.props.deleteTrack(song.track.id)
               }}
             >
-              -
-            </p>
+              <p>-</p>
+            </div>
           </li>
         )
       })

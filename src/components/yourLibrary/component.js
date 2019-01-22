@@ -19,6 +19,7 @@ const YourLibrary = ({
   artistIds,
   toggleArtistMainComponent,
   content,
+  library,
 }) => {
   const handleClick = name => {
     updateSearchTitle(name)
@@ -29,7 +30,6 @@ const YourLibrary = ({
       toggleArtistMainComponent(false)
     }, 300)
   }
-
   const renderYourLibrary = () => {
     const menu = [
       {
@@ -97,11 +97,11 @@ const YourLibrary = ({
     })
   }
   return (
-    <div>
-      <div className={content ? 'no-display' : ''}>
+    <div className={library ? 'no-display' : ''}>
+      <div className={content || title === 'Your Library' ? 'no-display' : ''}>
         <ul className="search-menu-container">{renderYourSearch()}</ul>
       </div>
-      <div className={content ? '' : 'no-display'}>
+      <div className={content || title === 'Your Library' ? '' : 'no-display'}>
         <ul className="search-menu-container">{renderYourLibrary()}</ul>
       </div>
     </div>
@@ -110,6 +110,7 @@ const YourLibrary = ({
 
 YourLibrary.propTypes = {
   content: PropTypes.bool,
+  library: PropTypes.bool,
   updateHeaderTitle: PropTypes.func,
   updateSearchTitle: PropTypes.func,
   updateViewType: PropTypes.func,

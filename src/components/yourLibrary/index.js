@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     title: state.uiReducer.title,
     searchTitle: state.uiReducer.searchTitle,
     content: state.uiReducer.content,
+    library: state.uiReducer.library,
   }
 }
 

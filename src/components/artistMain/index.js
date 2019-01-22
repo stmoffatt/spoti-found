@@ -7,6 +7,7 @@ import { getArtist } from '../../actions/artistActions'
 import { toggleArtistMainComponent } from '../../actions/artistActions'
 import { updateShowComponent } from '../../actions/artistActions'
 import { albumTracks, currentPlayingSong } from '../../actions/songActions'
+import { updateSideBarContent, updateLibraryList } from '../../actions/uiActions'
 
 const mapStateToProps = state => {
   return {
@@ -35,6 +36,8 @@ const mapDispatchToProps = dispatch => {
       updateShowComponent,
       albumTracks,
       currentPlayingSong,
+      updateSideBarContent,
+      updateLibraryList,
     },
     dispatch,
   )

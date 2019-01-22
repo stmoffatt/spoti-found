@@ -1,7 +1,7 @@
 import myArtistList from './component'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateHeaderTitle } from '../../actions/uiActions'
+import { updateHeaderTitle, updateSideBarContent, updateLibraryList } from '../../actions/uiActions'
 import { updateShowComponent } from '../../actions/artistActions'
 import { updateArtistId } from '../../actions/artistActions'
 import { searchAlbums } from '../../actions/albumActions'
@@ -27,6 +27,8 @@ const mapDispatchToProps = dispatch => {
       searchAlbums,
       getArtist,
       topTracks,
+      updateSideBarContent,
+      updateLibraryList,
     },
     dispatch,
   )

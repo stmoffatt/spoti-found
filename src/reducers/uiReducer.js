@@ -2,6 +2,7 @@ const defaultState = {
   title: 'Your Library',
   content: true,
   searchTitle: 'Songs',
+  library: false,
 }
 
 export const uiReducer = (state = defaultState, action) => {
@@ -20,6 +21,12 @@ export const uiReducer = (state = defaultState, action) => {
       return {
         ...state,
         content: action.content,
+      }
+
+    case 'UPDATE_LIBRARY_LIST':
+      return {
+        ...state,
+        library: action.library,
       }
 
     default:

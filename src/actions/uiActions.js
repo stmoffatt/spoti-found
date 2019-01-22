@@ -18,3 +18,10 @@ export const updateSideBarContent = content => {
     content,
   }
 }
+
+export const updateLibraryList = library => {
+  return {
+    type: 'UPDATE_LIBRARY_LIST',
+    library,
+  }
+}

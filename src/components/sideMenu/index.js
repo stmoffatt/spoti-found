@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { fetchSongs, updateViewType } from '../../actions/songActions'
 import { fetchAlbums } from '../../actions/albumActions'
 import { searchArtists } from '../../actions/artistActions'
-import { updateHeaderTitle, updateSideBarContent, updateSearchTitle } from '../../actions/uiActions'
+import { updateHeaderTitle, updateSideBarContent, updateSearchTitle, updateLibraryList } from '../../actions/uiActions'
 import { updateShowComponent } from '../../actions/artistActions'
 import { toggleArtistMainComponent } from '../../actions/artistActions'
 
@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch => {
       updateShowComponent,
       toggleArtistMainComponent,
       updateSideBarContent,
+      updateLibraryList,
     },
     dispatch,
   )

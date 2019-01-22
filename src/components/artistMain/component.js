@@ -26,6 +26,8 @@ const ArtistMain = ({
   songPaused,
   songPlaying,
   currentPlayingSong,
+  updateSideBarContent,
+  updateLibraryList,
 }) => {
   const renderSongs = () => {
     return topTracks.map((song, i) => {
@@ -72,6 +74,8 @@ const ArtistMain = ({
           onClick={e => {
             e.preventDefault()
             updateShowComponent(false)
+            updateSideBarContent(false)
+            updateLibraryList(false)
           }}
         >
           back
@@ -109,6 +113,7 @@ const ArtistMain = ({
                     e.preventDefault()
                     albumTracks(album.id)
                     setTimeout(() => {
+                      albumTracks(album.id)
                       toggleArtistMainComponent(true)
                     }, 300)
                   }}
@@ -155,7 +160,9 @@ ArtistMain.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   toggleArtistMainComponent: PropTypes.func,
+  updateSideBarContent: PropTypes.func,
   updateShowComponent: PropTypes.func,
+  updateLibraryList: PropTypes.func,
   albumTracks: PropTypes.func,
   songPaused: PropTypes.bool,
   currentPlayingSong: PropTypes.func,

@@ -19,6 +19,8 @@ const MyArtistList = ({
   albums,
   topTracks,
   user,
+  updateSideBarContent,
+  updateLibraryList,
 }) => {
   const render = () => {
     return showComponent ? (
@@ -35,6 +37,8 @@ const MyArtistList = ({
                 topTracks(artist.id, user.country)
                 setTimeout(() => {
                   updateShowComponent(true)
+                  updateSideBarContent(true)
+                  updateLibraryList(true)
                 }, 200)
               }}
             >
@@ -76,6 +80,8 @@ MyArtistList.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   searchAlbums: PropTypes.func,
+  updateSideBarContent: PropTypes.func,
+  updateShowComponent: PropTypes.func,
   getArtist: PropTypes.func,
   topTracks: PropTypes.func,
 }

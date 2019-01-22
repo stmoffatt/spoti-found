@@ -17,6 +17,7 @@ const SideMenu = ({
   artistIds,
   toggleArtistMainComponent,
   updateSideBarContent,
+  updateLibraryList,
 }) => {
   const handleClick = name => {
     if (name == 'Your Library') {
@@ -64,6 +65,7 @@ const SideMenu = ({
           onClick={() => {
             item.getArtists ? item.action(token, artistIds) : item.action(token)
             handleClick(item.header)
+            updateLibraryList(false)
           }}
         >
           {item.name}
@@ -93,6 +95,7 @@ SideMenu.propTypes = {
   updateShowComponent: PropTypes.func,
   toggleArtistMainComponent: PropTypes.func,
   updateSideBarContent: PropTypes.func,
+  updateLibraryList: PropTypes.func,
 }
 
 export default SideMenu

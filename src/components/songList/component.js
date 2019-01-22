@@ -69,7 +69,7 @@ class SongList extends Component {
   }
 
   render() {
-    return (
+    return this.props.songs.length > 0 ? (
       <div>
         <div className="song-header-container">
           <div className="song-title-header">
@@ -89,6 +89,8 @@ class SongList extends Component {
         </div>
         {this.props.songs && this.renderSongs()}
       </div>
+    ) : (
+      <span />
     )
   }
 }

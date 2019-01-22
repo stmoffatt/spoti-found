@@ -23,9 +23,10 @@ const MyArtistList = ({
   updateLibraryList,
 }) => {
   const render = () => {
+    console.log(myArtists)
     return showComponent ? (
       <ArtistMain resumeSong={resumeSong} pauseSong={pauseSong} audioControl={audioControl} />
-    ) : myArtists.artists.length > 0 ? (
+    ) : myArtists.artists ? (
       myArtists.artists.map((artist, i) => {
         return (
           <li className="artist-item" key={i}>
@@ -53,7 +54,7 @@ const MyArtistList = ({
                 />
               </div>
               <div className="artist-details">
-                <h4>{artist.name} </h4>
+                <h4>{artist.name}</h4>
               </div>
             </div>
           </li>

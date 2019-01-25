@@ -4,14 +4,16 @@
 }
 
 .track-search-container input {
-  background: #fff;
+  background: rgb(40, 40, 40);
   width: calc(100vw - 234px);
-  height: 50px;
-  font-size: 30px;
+  height: 90px;
+  font-size: 45px;
   border: none;
   font-family: 'Proxima Nova', Georgia, sans-serif;
   padding: 4px 4px 4px 10px;
   outline: none;
+  color: white;
+  text-transform: capitalize;
 }
 
 .search {

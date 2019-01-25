@@ -37,6 +37,7 @@ const MyArtistList = ({
                 getArtist(artist.id)
                 topTracks(artist.id, user.country)
                 setTimeout(() => {
+                  window.scrollTo(0, 0)
                   updateShowComponent(true)
                   updateSideBarContent(true)
                   updateLibraryList(true)

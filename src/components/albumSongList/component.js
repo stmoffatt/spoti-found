@@ -75,6 +75,7 @@ class AlbumSongList extends Component {
           style={{ cursor: 'pointer' }}
           onClick={e => {
             e.preventDefault()
+            window.scrollTo(0, 0)
             this.props.toggleArtistMainComponent(false)
           }}
         >

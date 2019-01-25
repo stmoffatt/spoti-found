@@ -76,6 +76,7 @@ const ArtistMain = ({
             updateShowComponent(false)
             updateSideBarContent(false)
             updateLibraryList(false)
+            window.scrollTo(0, 0)
           }}
         >
           back

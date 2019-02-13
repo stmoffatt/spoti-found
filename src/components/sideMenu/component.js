@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './sideMenu.css'
 import TrackSearch from '../trackSearch'
+import { Link } from 'react-router-dom'
 import UserDetails from '../userDetails'
 
 const SideMenu = ({
@@ -26,20 +27,12 @@ const SideMenu = ({
       updateViewType(name)
       updateSideBarContent(true)
       window.scrollTo(0, 0)
-      setTimeout(() => {
-        updateShowComponent(false)
-        toggleArtistMainComponent(false)
-      }, 300)
     } else {
       updateHeaderTitle(name)
       updateSearchTitle(name)
       updateViewType(name)
       updateSideBarContent(false)
       window.scrollTo(0, 0)
-      setTimeout(() => {
-        updateShowComponent(false)
-        toggleArtistMainComponent(false)
-      }, 300)
     }
   }
 
@@ -48,12 +41,12 @@ const SideMenu = ({
       {
         name: 'Your Library',
         header: 'Your Library',
-        action: fetchSongs,
+        link: '/YourLibrary',
       },
       {
         name: 'Search',
         header: 'SearchedSongs',
-        action: fetchAlbums,
+        link: '/Search',
       },
     ]
 
@@ -63,12 +56,11 @@ const SideMenu = ({
           key={item.header}
           className={title === item.header ? 'active side-menu-item' : 'side-menu-item'}
           onClick={() => {
-            item.getArtists ? item.action(token, artistIds) : item.action(token)
             handleClick(item.header)
             updateLibraryList(false)
           }}
         >
-          {item.name}
+          <Link to={item.link}>{item.name}</Link>
         </li>
       )
     })

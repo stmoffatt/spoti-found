@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     songAddedId: state.userReducer.songId || '',
     viewType: state.songsReducer.viewType,
     CurrentPlayingSongList: state.songsReducer.CurrentPlayingSongList,
+    isLoggedIn: state.tokenReducer.isLoggedIn,
   }
 }
 

@@ -15,6 +15,7 @@ const mapStateToProps = state => {
     viewType: state.artistsReducer.viewType,
     showComponent: state.artistsReducer.showComponent,
     user: state.userReducer.user,
+    isLoggedIn: state.tokenReducer.isLoggedIn,
   }
 }
 

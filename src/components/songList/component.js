@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect, withRouter } from 'react-router-dom'
 import moment from 'moment'
 import './songList.css'
 
 class SongList extends Component {
+  componentDidMount() {
+    this.props.fetchSongs()
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!nextProps.songs) {
       this.props.fetchSongs()
@@ -69,6 +74,7 @@ class SongList extends Component {
   }
 
   render() {
+    if (!this.props.isLoggedIn) return <Redirect to="/" />
     return this.props.songs.length > 0 ? (
       <div>
         <div className="song-header-container">
@@ -112,6 +118,7 @@ SongList.propTypes = {
   pauseSong: PropTypes.func,
   currentPlayingSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
 }
 
 export default SongList

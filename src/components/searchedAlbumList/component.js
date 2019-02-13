@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 import './searchedAlbumList.css'
 class SearchedAlbumList extends Component {
   searchedRenderAlbums = () => {
@@ -34,12 +35,14 @@ class SearchedAlbumList extends Component {
     )
   }
   render() {
+    if (!this.props.isLoggedIn) return <Redirect to="/" />
     return <ul className="album-view-container">{this.searchedRenderAlbums()}</ul>
   }
 }
 SearchedAlbumList.propTypes = {
   songs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   audioControl: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
 }
 
 export default SearchedAlbumList

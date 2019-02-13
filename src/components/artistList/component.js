@@ -1,48 +1,27 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ArtistMain from '../artistMain'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import './artistList.css'
 
-const ArtistList = ({
-  audioControl,
-  resumeSong,
-  pauseSong,
-  artists,
-  searchArtists,
-  token,
-  updateHeaderTitle,
-  showComponent,
-  updateShowComponent,
-  updateArtistId,
-  searchAlbums,
-  getArtist,
-  albums,
-  topTracks,
-  user,
-  updateSideBarContent,
-  updateLibraryList,
-}) => {
-  const render = () => {
-    return showComponent ? (
-      <ArtistMain resumeSong={resumeSong} pauseSong={pauseSong} audioControl={audioControl} />
-    ) : artists.length > 0 ? (
-      artists.map((artist, i) => {
+class ArtistList extends Component {
+  renderSongs() {
+    return this.props.artists.length > 0 ? (
+      this.props.artists.map((artist, i) => {
+        const handleClick = () => {
+          this.props.searchAlbums(artist.artist.id)
+          this.props.getArtist(artist.artist.id)
+          this.props.topTracks(artist.artist.id, this.props.user.country)
+          setTimeout(() => {
+            window.scrollTo(0, 0)
+            this.props.updateSideBarContent(true)
+            this.props.updateLibraryList(true)
+            this.props.history.push('/ArtistMain')
+          }, 500)
+        }
         return (
-          <li className="artist-item" key={i}>
-            <div
-              onClick={e => {
-                e.preventDefault()
-                searchAlbums(artist.artist.id)
-                getArtist(artist.artist.id)
-                topTracks(artist.artist.id, user.country)
-                setTimeout(() => {
-                  window.scrollTo(0, 0)
-                  updateLibraryList(true)
-                  updateSideBarContent(true)
-                  updateShowComponent(true)
-                }, 200)
-              }}
-            >
+          <li className="artist-item" key={i} onClick={handleClick}>
+            <div>
               <div className="artist-image">
                 <img
                   src={
@@ -64,9 +43,12 @@ const ArtistList = ({
       <span />
     )
   }
-  return <ul className="artist-view-container">{render()}</ul>
-}
 
+  render() {
+    if (!this.props.isLoggedIn) return <Redirect to="/" />
+    return <ul className="artist-view-container">{this.renderSongs()}</ul>
+  }
+}
 ArtistList.propTypes = {
   artists: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   albums: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -86,6 +68,7 @@ ArtistList.propTypes = {
   getArtist: PropTypes.func,
   topTracks: PropTypes.func,
   updateSideBarContent: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
 }
 
-export default ArtistList
+export default withRouter(ArtistList)

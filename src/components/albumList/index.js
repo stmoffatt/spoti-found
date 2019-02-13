@@ -11,6 +11,7 @@ const mapStateToProps = state => {
 
   return {
     songs: albumSongs,
+    isLoggedIn: state.tokenReducer.isLoggedIn,
   }
 }
 

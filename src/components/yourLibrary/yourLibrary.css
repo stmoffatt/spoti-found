@@ -23,3 +23,8 @@
   color: rgb(179, 179, 179);
   margin: 0;
 }
+
+a:-webkit-any-link {
+  color: rgb(179, 179, 179);
+  text-decoration-line: none;
+}

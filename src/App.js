@@ -4,44 +4,30 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchUser } from './actions/userActions'
 import { setToken } from './actions/tokenActions'
+import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom'
 import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions'
 import './App.css'
 
-import MainView from './components/mainView'
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
 import YourLibrary from './components/yourLibrary'
 import TrackSearch from './components/trackSearch'
+import SongList from './components/songList'
+import AlbumList from './components/albumList'
+import MyArtistList from './components/myArtistsList'
+import SearchSongList from './components/searchSongList'
+import SearchAlbumList from './components/searchedAlbumList'
+import ArtistList from './components/artistList'
+import ArtistMain from './components/artistMain'
+import AlbumSongList from './components/albumSongList'
 import SpotifyWebApi from 'spotify-web-api-js'
+import Login from './login'
 const spotifyApi = new SpotifyWebApi()
 
 class App extends Component {
   static audio
 
-  componentDidMount() {
-    let hashParams = {}
-    let e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1)
-    while ((e = r.exec(q))) {
-      hashParams[e[1]] = decodeURIComponent(e[2])
-    }
-
-    if (!hashParams.access_token) {
-      window.location.href =
-        'https://accounts.spotify.com/authorize?client_id=fe15f7e5f0174c49b581f188294c1816&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=https://spoti-found.herokuapp.com/'
-    } else {
-      this.props.setToken(hashParams.access_token)
-      spotifyApi.setAccessToken(hashParams.access_token)
-    }
-    window.scrollTo(0, 0)
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.token) {
-      this.props.fetchUser(nextProps.token)
-    }
-
     if (this.audio) {
       this.audio.volume = nextProps.volume / 100
     }
@@ -91,7 +77,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className={this.props.content ? 'no-display' : ''}>
+        <Route exact path="/" component={Login} />
+        <div className={this.props.title === 'Your Library' || this.props.content ? 'no-display' : ''}>
           <TrackSearch />
         </div>
         <div className="app-container">
@@ -102,11 +89,85 @@ class App extends Component {
           <div className="main-section">
             <YourLibrary />
             <div className="main-section-container">
-              <MainView
-                pauseSong={this.pauseSong}
-                resumeSong={this.resumeSong}
-                audioControl={this.audioControl}
-                albumAudioControl={this.albumAudioControl}
+              <Route
+                exact
+                path="/YourLibrary"
+                render={props => (
+                  <SongList resumeSong={this.resumeSong} pauseSong={this.pauseSong} audioControl={this.audioControl} />
+                )}
+              />
+              <Route
+                exact
+                path="/YourLibrary/Albums"
+                render={props => (
+                  <AlbumList resumeSong={this.resumeSong} pauseSong={this.pauseSong} audioControl={this.audioControl} />
+                )}
+              />
+              <Route
+                exact
+                path="/YourLibrary/Artists"
+                render={props => (
+                  <MyArtistList
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/Search"
+                render={props => (
+                  <SearchSongList
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/Search/Albums"
+                render={props => (
+                  <SearchAlbumList
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/Search/Artists"
+                render={props => (
+                  <ArtistList
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/ArtistMain"
+                render={props => (
+                  <ArtistMain
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/AlbumMain"
+                render={props => (
+                  <AlbumSongList
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
+                )}
               />
             </div>
           </div>
@@ -132,6 +193,7 @@ App.propTypes = {
   resumeSong: PropTypes.func,
   volume: PropTypes.number,
   content: PropTypes.bool,
+  title: PropTypes.string,
 }
 
 const mapStateToProps = state => {
@@ -139,6 +201,7 @@ const mapStateToProps = state => {
     token: state.tokenReducer.token,
     volume: state.soundReducer.volume,
     content: state.uiReducer.content,
+    title: state.uiReducer.title,
   }
 }
 
@@ -156,7 +219,9 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(App),
+)

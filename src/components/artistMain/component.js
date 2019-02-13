@@ -1,48 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import AlbumSongList from '../albumSongList'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import './artistMain.css'
 
-const msToMinutesAndSeconds = ms => {
-  const minutes = Math.floor(ms / 60000)
-  const seconds = ((ms % 60000) / 1000).toFixed(0)
-  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-}
+class ArtistMain extends Component {
+  msToMinutesAndSeconds = ms => {
+    const minutes = Math.floor(ms / 60000)
+    const seconds = ((ms % 60000) / 1000).toFixed(0)
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+  }
 
-const ArtistMain = ({
-  albums,
-  artist,
-  toggleMain,
-  audioControl,
-  resumeSong,
-  pauseSong,
-  searchAlbums,
-  toggleArtistMainComponent,
-  updateShowComponent,
-  albumTracks,
-  topTracks,
-  songId,
-  viewType,
-  songPaused,
-  songPlaying,
-  currentPlayingSong,
-  updateSideBarContent,
-  updateLibraryList,
-}) => {
-  const renderSongs = () => {
-    return topTracks.map((song, i) => {
-      const buttonClass = song.track.id === songId && !songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
+  renderSongs() {
+    console.log(this.props)
+    return this.props.topTracks.map((song, i) => {
+      const buttonClass =
+        song.track.id === this.props.songId && !this.props.songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
 
       return (
-        <li className={song.track.id === songId ? 'active user-song-item' : 'user-song-item'} key={i}>
+        <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={i}>
           <div
             onClick={() => {
-              song.track.id === songId && songPlaying && songPaused
-                ? resumeSong()
-                : songPlaying && !songPaused && song.track.id === songId
-                ? pauseSong()
-                : audioControl(song),
-                currentPlayingSong(topTracks)
+              song.track.id === this.props.songId && this.props.songPlaying && this.props.songPaused
+                ? this.props.resumeSong()
+                : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
+                ? this.props.pauseSong()
+                : this.props.audioControl(song),
+                this.props.currentPlayingSong(this.props.topTracks)
             }}
             className="play-song"
           >
@@ -58,24 +42,22 @@ const ArtistMain = ({
           </div>
 
           <div className="song-length">
-            <p>{msToMinutesAndSeconds(song.track.duration_ms)}</p>
+            <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
           </div>
         </li>
       )
     })
   }
 
-  const render = () => {
-    return toggleMain ? (
-      <AlbumSongList resumeSong={resumeSong} pauseSong={pauseSong} audioControl={audioControl} />
-    ) : albums.length > 0 ? (
+  render() {
+    if (!this.props.isLoggedIn) return <Redirect to="/" />
+    return this.props.albums.length > 0 ? (
       <div>
         <h3
-          onClick={e => {
-            e.preventDefault()
-            updateShowComponent(false)
-            updateSideBarContent(false)
-            updateLibraryList(false)
+          onClick={() => {
+            this.props.history.goBack()
+            this.props.updateSideBarContent(false)
+            this.props.updateLibraryList(false)
             window.scrollTo(0, 0)
           }}
         >
@@ -87,38 +69,36 @@ const ArtistMain = ({
               <img
                 className="current-artist-image"
                 src={
-                  artist.images[0]
-                    ? artist.images[0].url
+                  this.props.artist.images[0]
+                    ? this.props.artist.images[0].url
                     : 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg'
                 }
                 alt="Current Artist"
               />
             </div>
             <div className="current-artist-info">
-              <h3>{artist.name}</h3>
-              <p>Followers: {artist.followers.total}</p>
+              <h3>{this.props.artist.name}</h3>
+              <p>Followers: {this.props.artist.followers.total}</p>
             </div>
           </div>
           <div>
             <h1>Top Tracks</h1>
-            {renderSongs()}
+            {this.renderSongs()}
           </div>
         </div>
         <h1>Albums</h1>
         <div className="artist-view-container">
-          {albums.map((album, i) => {
+          {this.props.albums.map((album, i) => {
+            const handleClick = () => {
+              this.props.albumTracks(album.id)
+              setTimeout(() => {
+                window.scrollTo(0, 0)
+                this.props.history.push('/AlbumMain')
+              }, 500)
+            }
             return (
               <li className="artist-item" key={i}>
-                <div
-                  onClick={e => {
-                    e.preventDefault()
-                    albumTracks(album.id)
-                    setTimeout(() => {
-                      albumTracks(album.id)
-                      toggleArtistMainComponent(true)
-                    }, 300)
-                  }}
-                >
+                <div onClick={handleClick}>
                   <div className="artist-image">
                     <img
                       src={
@@ -142,7 +122,6 @@ const ArtistMain = ({
       <span />
     )
   }
-  return <div>{render()}</div>
 }
 
 ArtistMain.propTypes = {
@@ -168,6 +147,7 @@ ArtistMain.propTypes = {
   songPaused: PropTypes.bool,
   currentPlayingSong: PropTypes.func,
   songPlaying: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
 }
 
-export default ArtistMain
+export default withRouter(ArtistMain)

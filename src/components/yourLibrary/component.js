@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import UserDetails from '../userDetails'
+import { Link } from 'react-router-dom'
 import './yourLibrary.css'
 
 const YourLibrary = ({
@@ -25,27 +26,23 @@ const YourLibrary = ({
     updateSearchTitle(name)
     updateViewType(name)
     window.scrollTo(0, 0)
-    setTimeout(() => {
-      updateShowComponent(false)
-      toggleArtistMainComponent(false)
-    }, 300)
   }
   const renderYourLibrary = () => {
     const menu = [
       {
         name: 'Songs',
         header: 'Songs',
-        action: fetchSongs,
+        link: '/YourLibrary',
       },
       {
         name: 'Albums',
         header: 'Albums',
-        action: fetchAlbums,
+        link: '/YourLibrary/Albums',
       },
       {
         name: 'Artists',
         header: 'Artists',
-        action: fetchSongs,
+        link: '/YourLibrary/Artists',
       },
     ]
 
@@ -55,11 +52,10 @@ const YourLibrary = ({
           key={('header 1', item.header)}
           className={searchTitle === item.header ? 'active search-menu-item' : 'search-menu-item'}
           onClick={() => {
-            item.getArtists ? item.action(token, artistIds) : item.action(token)
             handleClick(item.header)
           }}
         >
-          {item.name}
+          <Link to={item.link}>{item.name}</Link>
         </li>
       )
     })
@@ -69,17 +65,17 @@ const YourLibrary = ({
       {
         name: 'Songs',
         header: 'SearchedSongs',
-        action: searchSongs,
+        link: '/Search',
       },
       {
         name: 'Albums',
         header: 'SearchedAlbums',
-        action: searchAlbums,
+        link: '/Search/Albums',
       },
       {
         name: 'Artists',
         header: 'SearchedArtists',
-        action: searchArtists,
+        link: '/Search/Artists',
       },
     ]
     return searchMenu.map(item => {
@@ -91,7 +87,7 @@ const YourLibrary = ({
             handleClick(item.header)
           }}
         >
-          {item.name}
+          <Link to={item.link}> {item.name}</Link>
         </li>
       )
     })

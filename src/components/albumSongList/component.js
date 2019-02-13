@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import './albumSongList.css'
 
 class AlbumSongList extends Component {
@@ -47,6 +48,7 @@ class AlbumSongList extends Component {
   }
 
   render() {
+    if (!this.props.isLoggedIn) return <Redirect to="/" />
     return (
       <div>
         <div className="album-song-list-container">
@@ -73,10 +75,10 @@ class AlbumSongList extends Component {
         </div>
         <h3
           style={{ cursor: 'pointer' }}
-          onClick={e => {
-            e.preventDefault()
+          onClick={() => {
+            this.props.history.goBack()
+
             window.scrollTo(0, 0)
-            this.props.toggleArtistMainComponent(false)
           }}
         >
           back
@@ -104,6 +106,7 @@ AlbumSongList.propTypes = {
   albumTracks: PropTypes.func,
   currentPlayingSong: PropTypes.func,
   toggleArtistMainComponent: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
 }
 
-export default AlbumSongList
+export default withRouter(AlbumSongList)

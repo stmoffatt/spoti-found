@@ -23,6 +23,7 @@ const mapStateToProps = state => {
     songPlaying: state.songsReducer.songPlaying,
     songPaused: state.songsReducer.songPaused,
     CurrentPlayingSongList: state.songsReducer.CurrentPlayingSongList,
+    isLoggedIn: state.tokenReducer.isLoggedIn,
   }
 }
 

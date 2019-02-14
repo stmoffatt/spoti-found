@@ -1,42 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './sideMenu.css'
 import TrackSearch from '../trackSearch'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import UserDetails from '../userDetails'
 
-const SideMenu = ({
-  updateHeaderTitle,
-  updateViewType,
-  updateShowComponent,
-  updateSearchTitle,
-  fetchSongs,
-  fetchAlbums,
-  searchArtists,
-  token,
-  title,
-  artistIds,
-  toggleArtistMainComponent,
-  updateSideBarContent,
-  updateLibraryList,
-}) => {
-  const handleClick = name => {
+class SideMenu extends Component {
+  handleClick = (name, link) => {
     if (name == 'Your Library') {
-      updateHeaderTitle(name)
-      updateSearchTitle('Songs')
-      updateViewType(name)
-      updateSideBarContent(true)
+      this.props.updateHeaderTitle(name)
+      this.props.updateSearchTitle('Songs')
+      this.props.updateViewType(name)
+      this.props.history.push(link)
       window.scrollTo(0, 0)
     } else {
-      updateHeaderTitle(name)
-      updateSearchTitle(name)
-      updateViewType(name)
-      updateSideBarContent(false)
+      this.props.updateHeaderTitle(name)
+      this.props.updateSearchTitle(name)
+      this.props.updateViewType(name)
+      this.props.history.push(link)
       window.scrollTo(0, 0)
     }
   }
 
-  const renderSideMenu = () => {
+  renderSideMenu() {
     const menu = [
       {
         name: 'Your Library',
@@ -54,24 +40,24 @@ const SideMenu = ({
       return (
         <li
           key={item.header}
-          className={title === item.header ? 'active side-menu-item' : 'side-menu-item'}
+          className={this.props.title === item.header ? 'active side-menu-item' : 'side-menu-item'}
           onClick={() => {
-            handleClick(item.header)
-            updateLibraryList(false)
+            this.handleClick(item.header, item.link)
           }}
         >
-          <Link to={item.link}>{item.name}</Link>
+          {item.name}
         </li>
       )
     })
   }
-
-  return (
-    <div className="side-bar-container">
-      <ul className="side-menu-container">{renderSideMenu()}</ul>
-      <UserDetails />
-    </div>
-  )
+  render() {
+    return (
+      <div className="side-bar-container">
+        <ul className="side-menu-container">{this.renderSideMenu()}</ul>
+        <UserDetails />
+      </div>
+    )
+  }
 }
 
 SideMenu.propTypes = {
@@ -90,4 +76,4 @@ SideMenu.propTypes = {
   updateLibraryList: PropTypes.func,
 }
 
-export default SideMenu
+export default withRouter(SideMenu)

@@ -4,7 +4,6 @@ const defaultState = {
 }
 
 export const albumsReducer = (state = {}, action) => {
-  console.log(action)
   switch (action.type) {
     case 'FETCH_ALBUMS_SUCCESS':
       return {

@@ -10,7 +10,8 @@ import './App.css'
 
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
-import YourLibrary from './components/yourLibrary'
+import YourLibraryNavigation from './components/yourLibraryNavigation'
+import SearchNavigation from './components/searchNavigation'
 import TrackSearch from './components/trackSearch'
 import SongList from './components/songList'
 import AlbumList from './components/albumList'
@@ -78,7 +79,15 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path="/" component={Login} />
-        <div className={this.props.title === 'Your Library' || this.props.content ? 'no-display' : ''}>
+        <div
+          className={
+            this.props.location.pathname === '/Search' ||
+            this.props.location.pathname === '/Search/Albums' ||
+            this.props.location.pathname === '/Search/Artists'
+              ? ''
+              : 'no-display'
+          }
+        >
           <TrackSearch />
         </div>
         <div className="app-container">
@@ -87,7 +96,28 @@ class App extends Component {
           </div>
 
           <div className="main-section">
-            <YourLibrary />
+            <div
+              className={
+                this.props.location.pathname === '/YourLibrary' ||
+                this.props.location.pathname === '/YourLibrary/Albums' ||
+                this.props.location.pathname === '/YourLibrary/Artists'
+                  ? ''
+                  : 'no-display'
+              }
+            >
+              <YourLibraryNavigation />
+            </div>
+            <div
+              className={
+                this.props.location.pathname === '/Search' ||
+                this.props.location.pathname === '/Search/Albums' ||
+                this.props.location.pathname === '/Search/Artists'
+                  ? ''
+                  : 'no-display'
+              }
+            >
+              <SearchNavigation />
+            </div>
             <div className="main-section-container">
               <Route
                 exact

@@ -12,7 +12,6 @@ class ArtistMain extends Component {
   }
 
   renderSongs() {
-    console.log(this.props)
     return this.props.topTracks.map((song, i) => {
       const buttonClass =
         song.track.id === this.props.songId && !this.props.songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'

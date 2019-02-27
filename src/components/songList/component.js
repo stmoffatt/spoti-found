@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Redirect, withRouter } from 'react-router-dom'
-import moment from 'moment'
+import { Redirect } from 'react-router-dom'
 import './songList.css'
 
 class SongList extends Component {
@@ -9,11 +8,6 @@ class SongList extends Component {
     this.props.fetchSongs()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.songs) {
-      this.props.fetchSongs()
-    }
-  }
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000)
     const seconds = ((ms % 60000) / 1000).toFixed(0)
@@ -34,8 +28,8 @@ class SongList extends Component {
                   ? this.props.resumeSong()
                   : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
                   ? this.props.pauseSong()
-                  : this.props.audioControl(song),
-                  this.props.currentPlayingSong(this.props.songs)
+                  : this.props.audioControl(song)
+                this.props.currentPlayingSong(this.props.songs)
               }}
               className="play-song"
             >
@@ -102,13 +96,8 @@ class SongList extends Component {
 }
 
 SongList.propTypes = {
-  viewType: PropTypes.string,
-  token: PropTypes.string,
-  songAddedId: PropTypes.string,
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   songs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  fetchSongsError: PropTypes.bool,
   fetchSongs: PropTypes.func,
   audioControl: PropTypes.func,
   songPaused: PropTypes.bool,
@@ -117,7 +106,6 @@ SongList.propTypes = {
   deleteTrack: PropTypes.func,
   pauseSong: PropTypes.func,
   currentPlayingSong: PropTypes.func,
-  addSongToLibrary: PropTypes.func,
   isLoggedIn: PropTypes.bool,
 }
 

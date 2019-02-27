@@ -1,4 +1,4 @@
-.test {
+.artwork-box {
   padding-left: 10px;
   top: 10px;
   height: 62px;
@@ -6,7 +6,7 @@
   position: absolute;
 }
 
-.test2 {
+.artwork {
   height: 60px;
   width: 60px;
 }

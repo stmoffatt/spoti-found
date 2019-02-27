@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import AlbumSongList from '../albumSongList'
-import { Link, withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import './artistMain.css'
 
 class ArtistMain extends Component {
@@ -24,8 +23,8 @@ class ArtistMain extends Component {
                 ? this.props.resumeSong()
                 : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
                 ? this.props.pauseSong()
-                : this.props.audioControl(song),
-                this.props.currentPlayingSong(this.props.topTracks)
+                : this.props.audioControl(song)
+              this.props.currentPlayingSong(this.props.topTracks)
             }}
             className="play-song"
           >
@@ -55,8 +54,6 @@ class ArtistMain extends Component {
         <h3
           onClick={() => {
             this.props.history.goBack()
-            this.props.updateSideBarContent(false)
-            this.props.updateLibraryList(false)
             window.scrollTo(0, 0)
           }}
         >
@@ -128,25 +125,13 @@ ArtistMain.propTypes = {
   artist: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   topTracks: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  viewType: PropTypes.string,
-  toggleMain: PropTypes.bool,
-  token: PropTypes.string,
-  updateHeaderTitle: PropTypes.func,
-  setAlbumIds: PropTypes.func,
-  searchAlbums: PropTypes.func,
   audioControl: PropTypes.func,
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
-  toggleArtistMainComponent: PropTypes.func,
-  updateSideBarContent: PropTypes.func,
-  updateShowComponent: PropTypes.func,
-  updateLibraryList: PropTypes.func,
   albumTracks: PropTypes.func,
   songPaused: PropTypes.bool,
   currentPlayingSong: PropTypes.func,
   songPlaying: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
 }
-
 export default withRouter(ArtistMain)

@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link, withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import './albumSongList.css'
 
 class AlbumSongList extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
-
   msToMinutesAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000)
     const seconds = ((ms % 60000) / 1000).toFixed(0)
@@ -27,8 +23,8 @@ class AlbumSongList extends Component {
                 ? this.props.resumeSong()
                 : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
                 ? this.props.pauseSong()
-                : this.props.audioControl(song),
-                this.props.currentPlayingSong(this.props.albumSongs)
+                : this.props.audioControl(song)
+              this.props.currentPlayingSong(this.props.albumSongs)
             }}
             className={song.track.id === this.props.songId ? 'active play-song' : 'play-song'}
           >
@@ -77,8 +73,6 @@ class AlbumSongList extends Component {
           style={{ cursor: 'pointer' }}
           onClick={() => {
             this.props.history.goBack()
-
-            window.scrollTo(0, 0)
           }}
         >
           back
@@ -89,23 +83,14 @@ class AlbumSongList extends Component {
 }
 
 AlbumSongList.propTypes = {
-  viewType: PropTypes.string,
-  token: PropTypes.string,
-  songAddedId: PropTypes.string,
-  albumIds: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   albumSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  fetchPlaylistSongsPending: PropTypes.bool,
-  albumAudioControl: PropTypes.func,
+  audioControl: PropTypes.func,
   songPaused: PropTypes.bool,
   songPlaying: PropTypes.bool,
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
-  addSongToLibrary: PropTypes.func,
-  albumTracks: PropTypes.func,
   currentPlayingSong: PropTypes.func,
-  toggleArtistMainComponent: PropTypes.func,
   isLoggedIn: PropTypes.bool,
 }
 

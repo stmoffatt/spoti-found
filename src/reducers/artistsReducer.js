@@ -1,8 +1,5 @@
 const defaultState = {
   artistIds: '',
-  artistId: '',
-  showComponent: false,
-  toggleMain: false,
 }
 
 export const artistsReducer = (state = defaultState, action) => {
@@ -11,11 +8,6 @@ export const artistsReducer = (state = defaultState, action) => {
       return {
         ...state,
         artistIds: action.artistIds,
-      }
-    case 'UPDATE_ARTIST_ID':
-      return {
-        ...state,
-        artistId: action.artistId,
       }
 
     case 'SEARCH_ARTISTS_PENDING':
@@ -37,16 +29,6 @@ export const artistsReducer = (state = defaultState, action) => {
         ...state,
         searchArtistsError: true,
         searchArtistsPending: false,
-      }
-    case 'UPDATE_SHOW_COMPONENT':
-      return {
-        ...state,
-        showComponent: action.show,
-      }
-    case 'TOGGLE_ARTIST_MAIN_COMPONENT':
-      return {
-        ...state,
-        toggleMain: action.toggle,
       }
 
     case 'GET_ARTIST_SUCCESS':

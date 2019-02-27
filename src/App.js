@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUser } from './actions/userActions'
-import { setToken } from './actions/tokenActions'
-import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions'
 import './App.css'
-
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
 import YourLibraryNavigation from './components/yourLibraryNavigation'
@@ -21,9 +18,7 @@ import SearchAlbumList from './components/searchedAlbumList'
 import ArtistList from './components/artistList'
 import ArtistMain from './components/artistMain'
 import AlbumSongList from './components/albumSongList'
-import SpotifyWebApi from 'spotify-web-api-js'
 import Login from './login'
-const spotifyApi = new SpotifyWebApi()
 
 class App extends Component {
   static audio
@@ -33,6 +28,7 @@ class App extends Component {
       this.audio.volume = nextProps.volume / 100
     }
   }
+
   stopSong = () => {
     if (this.audio) {
       this.props.stopSong()
@@ -76,18 +72,24 @@ class App extends Component {
   }
 
   render() {
+    const displaySearch =
+      this.props.location.pathname === '/Search' ||
+      this.props.location.pathname === '/Search/Albums' ||
+      this.props.location.pathname === '/Search/Artists'
+        ? ''
+        : 'no-display'
+
+    const displayYourLibrary =
+      this.props.location.pathname === '/YourLibrary' ||
+      this.props.location.pathname === '/YourLibrary/Albums' ||
+      this.props.location.pathname === '/YourLibrary/Artists'
+        ? ''
+        : 'no-display'
+
     return (
       <div className="App">
         <Route exact path="/" component={Login} />
-        <div
-          className={
-            this.props.location.pathname === '/Search' ||
-            this.props.location.pathname === '/Search/Albums' ||
-            this.props.location.pathname === '/Search/Artists'
-              ? ''
-              : 'no-display'
-          }
-        >
+        <div className={displaySearch}>
           <TrackSearch />
         </div>
         <div className="app-container">
@@ -96,26 +98,10 @@ class App extends Component {
           </div>
 
           <div className="main-section">
-            <div
-              className={
-                this.props.location.pathname === '/YourLibrary' ||
-                this.props.location.pathname === '/YourLibrary/Albums' ||
-                this.props.location.pathname === '/YourLibrary/Artists'
-                  ? ''
-                  : 'no-display'
-              }
-            >
+            <div className={displayYourLibrary}>
               <YourLibraryNavigation />
             </div>
-            <div
-              className={
-                this.props.location.pathname === '/Search' ||
-                this.props.location.pathname === '/Search/Albums' ||
-                this.props.location.pathname === '/Search/Artists'
-                  ? ''
-                  : 'no-display'
-              }
-            >
+            <div className={displaySearch}>
               <SearchNavigation />
             </div>
             <div className="main-section-container">
@@ -133,17 +119,7 @@ class App extends Component {
                   <AlbumList resumeSong={this.resumeSong} pauseSong={this.pauseSong} audioControl={this.audioControl} />
                 )}
               />
-              <Route
-                exact
-                path="/YourLibrary/Artists"
-                render={props => (
-                  <MyArtistList
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
+              <Route exact path="/YourLibrary/Artists" render={props => <MyArtistList />} />
               <Route
                 exact
                 path="/Search"
@@ -158,25 +134,9 @@ class App extends Component {
               <Route
                 exact
                 path="/Search/Albums"
-                render={props => (
-                  <SearchAlbumList
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
+                render={props => <SearchAlbumList audioControl={this.audioControl} />}
               />
-              <Route
-                exact
-                path="/Search/Artists"
-                render={props => (
-                  <ArtistList
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
+              <Route exact path="/Search/Artists" render={props => <ArtistList />} />
               <Route
                 exact
                 path="/ArtistMain"
@@ -214,32 +174,22 @@ class App extends Component {
 }
 
 App.propTypes = {
-  token: PropTypes.string,
-  fetchUser: PropTypes.func,
-  setToken: PropTypes.func,
   pauseSong: PropTypes.func,
   playSong: PropTypes.func,
   stopSong: PropTypes.func,
   resumeSong: PropTypes.func,
   volume: PropTypes.number,
-  content: PropTypes.bool,
-  title: PropTypes.string,
 }
 
 const mapStateToProps = state => {
   return {
-    token: state.tokenReducer.token,
     volume: state.soundReducer.volume,
-    content: state.uiReducer.content,
-    title: state.uiReducer.title,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      fetchUser,
-      setToken,
       playSong,
       stopSong,
       pauseSong,

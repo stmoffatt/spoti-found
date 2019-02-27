@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import UserDetails from '../userDetails'
 import { Link } from 'react-router-dom'
 import './yourLibraryNavigation.css'
 
-const YourLibraryNavigation = ({ updateSearchTitle, updateViewType, searchTitle }) => {
+const YourLibraryNavigation = ({ updateSearchTitle, searchTitle }) => {
   const handleClick = name => {
     updateSearchTitle(name)
-    updateViewType(name)
     window.scrollTo(0, 0)
   }
   const renderYourLibrary = () => {
@@ -55,7 +53,6 @@ const YourLibraryNavigation = ({ updateSearchTitle, updateViewType, searchTitle 
 
 YourLibraryNavigation.propTypes = {
   updateSearchTitle: PropTypes.func,
-  updateViewType: PropTypes.func,
   searchTitle: PropTypes.string,
 }
 

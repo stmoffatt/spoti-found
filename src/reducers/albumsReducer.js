@@ -1,8 +1,3 @@
-const defaultState = {
-  AlbumIds: '',
-  viewType: 'songs',
-}
-
 export const albumsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_ALBUMS_SUCCESS':
@@ -37,12 +32,6 @@ export const albumsReducer = (state = {}, action) => {
         ...state,
         searchAlbumsError: true,
         searchAlbumsPending: false,
-      }
-
-    case 'SET_ALBUM_IDS':
-      return {
-        ...state,
-        albumIds: action.albumIds,
       }
 
     default:

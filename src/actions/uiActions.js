@@ -11,17 +11,3 @@ export const updateSearchTitle = searchTitle => {
     searchTitle,
   }
 }
-
-export const updateSideBarContent = content => {
-  return {
-    type: 'UPDATE_SIDE_BAR_CONTENT',
-    content,
-  }
-}
-
-export const updateLibraryList = library => {
-  return {
-    type: 'UPDATE_LIBRARY_LIST',
-    library,
-  }
-}

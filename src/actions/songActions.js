@@ -3,17 +3,17 @@ import uniqBy from 'lodash/uniqBy'
 import { setArtistIds } from './artistActions'
 const spotifyApi = new SpotifyWebApi()
 
+export const setSongIds = savedSongIds => {
+  return {
+    type: 'SET_SONG_IDS',
+    savedSongIds,
+  }
+}
+
 export const fetchSongsSuccess = songs => {
   return {
     type: 'FETCH_SONGS_SUCCESS',
     songs,
-  }
-}
-
-export const fetchArtistsSuccess = myArtists => {
-  return {
-    type: 'FETCH_ARTISTS_SUCCESS',
-    myArtists,
   }
 }
 
@@ -23,10 +23,10 @@ export const fetchSongsError = () => {
   }
 }
 
-export const setSongIds = savedSongIds => {
+export const fetchArtistsSuccess = myArtists => {
   return {
-    type: 'SET_SONG_IDS',
-    savedSongIds,
+    type: 'FETCH_ARTISTS_SUCCESS',
+    myArtists,
   }
 }
 
@@ -121,6 +121,12 @@ export const albumTracksSuccess = albumSongs => {
   }
 }
 
+export const albumTracksError = () => {
+  return {
+    type: 'ALBUM_TRACKS_ERROR',
+  }
+}
+
 export const albumTracks = artistId => {
   return dispatch => {
     spotifyApi
@@ -148,16 +154,16 @@ export const albumTracks = artistId => {
   }
 }
 
-export const albumTracksError = () => {
-  return {
-    type: 'ALBUM_TRACKS_ERROR',
-  }
-}
-
 export const topTracksSuccess = topTracks => {
   return {
     type: 'TOP_TRACKS_SUCCESS',
     topTracks,
+  }
+}
+
+export const topTracksError = () => {
+  return {
+    type: 'TOP_TRACKS_ERROR',
   }
 }
 
@@ -185,12 +191,6 @@ export const deleteTrack = trackIds => {
     spotifyApi.removeFromMySavedTracks([`${trackIds}`]).then(data => {
       dispatch(fetchSongs())
     })
-  }
-}
-
-export const topTracksError = () => {
-  return {
-    type: 'TOP_TRACKS_ERROR',
   }
 }
 

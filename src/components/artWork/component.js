@@ -4,9 +4,9 @@ import './artWork.css'
 
 const ArtWork = albumArtwork => {
   return albumArtwork.albumImage ? (
-    <div className="test">
+    <div className="artwork-box">
       <img
-        className="test2"
+        className="artwork"
         src={
           albumArtwork.albumImage
             ? albumArtwork.albumImage

@@ -1,3 +1,4 @@
+import { fetchSongs } from './songActions'
 import SpotifyWebApi from 'spotify-web-api-js'
 const spotifyApi = new SpotifyWebApi()
 
@@ -46,6 +47,7 @@ export const addSongToLibrary = id => {
       .addToMySavedTracks([`${id}`])
       .then(res => {
         dispatch(addSongToLibrarySuccess(id))
+        dispatch(fetchSongs())
       })
       .catch(err => {
         dispatch(addSongToLibraryError(err))

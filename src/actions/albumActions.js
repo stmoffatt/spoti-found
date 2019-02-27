@@ -62,10 +62,3 @@ export const searchAlbums = artistId => {
       })
   }
 }
-
-export const setAlbumIds = albumIds => {
-  return {
-    type: 'SET_ALBUM_IDS',
-    albumIds,
-  }
-}

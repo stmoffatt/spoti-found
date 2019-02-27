@@ -68,31 +68,3 @@ export const setArtistIds = artistIds => {
     artistIds,
   }
 }
-
-export const updateArtistId = artistId => {
-  return {
-    type: 'UPDATE_ARTIST_ID',
-    artistId,
-  }
-}
-
-export const updateViewType = view => {
-  return {
-    type: 'UPDATE_VIEW_TYPE',
-    view,
-  }
-}
-
-export const updateShowComponent = show => {
-  return {
-    type: 'UPDATE_SHOW_COMPONENT',
-    show,
-  }
-}
-
-export const toggleArtistMainComponent = toggle => {
-  return {
-    type: 'TOGGLE_ARTIST_MAIN_COMPONENT',
-    toggle,
-  }
-}

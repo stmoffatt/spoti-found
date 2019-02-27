@@ -40,7 +40,7 @@ class SongControls extends Component {
   }
 
   getSongIndex = () => {
-    const { songs, songDetails, albumSongs, topTracks, CurrentPlayingSongList } = this.props
+    const { songDetails, CurrentPlayingSongList } = this.props
     if (songDetails === undefined) {
       return
     } else {
@@ -57,7 +57,7 @@ class SongControls extends Component {
   }
 
   nextSong = () => {
-    const { songs, albumSongs, topTracks, audioControl, songDetails, CurrentPlayingSongList } = this.props
+    const { songs, audioControl, songDetails, CurrentPlayingSongList } = this.props
     if (songDetails === undefined) {
       return
     } else {
@@ -69,7 +69,7 @@ class SongControls extends Component {
   }
 
   prevSong = () => {
-    const { songs, audioControl, albumSongs, topTracks, songDetails, CurrentPlayingSongList } = this.props
+    const { audioControl, songDetails, CurrentPlayingSongList } = this.props
     if (songDetails === undefined) {
       return
     } else {
@@ -141,11 +141,8 @@ SongControls.propTypes = {
   increaseSongTime: PropTypes.func,
   pauseSong: PropTypes.func,
   songs: PropTypes.array,
-  albumSongs: PropTypes.array,
-  topTracks: PropTypes.array,
   songDetails: PropTypes.object,
   audioControl: PropTypes.func,
-  albumArtwork: PropTypes.string,
   CurrentPlayingSongList: PropTypes.array,
 }
 

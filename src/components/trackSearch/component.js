@@ -26,14 +26,14 @@ class TrackSearch extends Component {
     return (
       <div className="track-search-container">
         <form
-          onChange={() => {
-            this.handleChange
+          onChange={e => {
+            this.handleChange(e)
           }}
         >
           <input onChange={this.updateSearchText} type="text" placeholder="Search..." />
           <button
-            onChange={() => {
-              this.handleChange
+            onChange={e => {
+              this.handleChange(e)
             }}
           />
         </form>
@@ -45,9 +45,6 @@ class TrackSearch extends Component {
 TrackSearch.propTypes = {
   searchSongs: PropTypes.func,
   searchArtists: PropTypes.func,
-  token: PropTypes.string,
-  updateShowComponent: PropTypes.func,
-  toggleArtistMainComponent: PropTypes.func,
 }
 
 export default TrackSearch

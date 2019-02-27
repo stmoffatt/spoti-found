@@ -1,7 +1,3 @@
-const initialState = {
-  isLoggedIn: false,
-}
-
 export const tokenReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_TOKEN':

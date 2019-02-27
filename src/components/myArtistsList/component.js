@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ArtistMain from '../artistMain'
-import { Link, withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import './myArtistList.css'
 
 class MyArtistList extends Component {
@@ -14,8 +13,6 @@ class MyArtistList extends Component {
           this.props.topTracks(artist.id, this.props.user.country)
           setTimeout(() => {
             window.scrollTo(0, 0)
-            this.props.updateSideBarContent(true)
-            this.props.updateLibraryList(true)
             this.props.history.push('/ArtistMain')
           }, 500)
         }
@@ -50,20 +47,8 @@ class MyArtistList extends Component {
 
 MyArtistList.propTypes = {
   myArtists: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  albums: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   user: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
-  searchArtists: PropTypes.func,
-  token: PropTypes.string,
-  updateHeaderTitle: PropTypes.func,
-  showComponent: PropTypes.bool,
-  updateShowComponent: PropTypes.func,
-  updateArtistId: PropTypes.func,
-  audioControl: PropTypes.func,
-  resumeSong: PropTypes.func,
-  pauseSong: PropTypes.func,
   searchAlbums: PropTypes.func,
-  updateSideBarContent: PropTypes.func,
-  updateShowComponent: PropTypes.func,
   getArtist: PropTypes.func,
   topTracks: PropTypes.func,
   isLoggedIn: PropTypes.bool,

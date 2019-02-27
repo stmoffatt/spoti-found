@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import UserDetails from '../userDetails'
 import { Link } from 'react-router-dom'
 import './searchNavigation.css'
 
-const SearchNavigation = ({ updateSearchTitle, updateViewType, searchTitle }) => {
+const SearchNavigation = ({ updateSearchTitle, searchTitle }) => {
   const handleClick = name => {
     updateSearchTitle(name)
-    updateViewType(name)
     window.scrollTo(0, 0)
   }
   const renderYourSearch = () => {
@@ -53,7 +51,6 @@ const SearchNavigation = ({ updateSearchTitle, updateViewType, searchTitle }) =>
 
 SearchNavigation.propTypes = {
   updateSearchTitle: PropTypes.func,
-  updateViewType: PropTypes.func,
   searchTitle: PropTypes.string,
 }
 

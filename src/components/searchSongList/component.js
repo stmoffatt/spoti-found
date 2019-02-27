@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import { Redirect } from 'react-router-dom'
 import './searchSongList.css'
 
@@ -24,8 +23,8 @@ class SearchSongList extends Component {
                 ? this.props.resumeSong()
                 : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
                 ? this.props.pauseSong()
-                : this.props.audioControl(song),
-                this.props.currentPlayingSong(this.props.searchedSongs)
+                : this.props.audioControl(song)
+              this.props.currentPlayingSong(this.props.searchedSongs)
             }}
             className="play-song"
           >
@@ -36,7 +35,6 @@ class SearchSongList extends Component {
             className="add-song"
             onClick={() => {
               this.props.addSongToLibrary(song.track.id)
-              this.props.fetchSongs()
             }}
           >
             {this.props.savedSongIds.some(r => song.track.id.includes(r)) === true ? <span> </span> : <p>+</p>}
@@ -91,15 +89,9 @@ class SearchSongList extends Component {
 }
 
 SearchSongList.propTypes = {
-  viewType: PropTypes.string,
-  token: PropTypes.string,
-  songAddedId: PropTypes.string,
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   savedSongIds: PropTypes.array,
   searchedSongs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  CurrentPlayingSongList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  fetchSongsError: PropTypes.bool,
-  fetchSongs: PropTypes.func,
   audioControl: PropTypes.func,
   songPaused: PropTypes.bool,
   songPlaying: PropTypes.bool,

@@ -1,7 +1,6 @@
 import SearchNavigation from './component'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateViewType } from '../../actions/songActions'
 import { updateSearchTitle } from '../../actions/uiActions'
 
 const mapStateToProps = state => {
@@ -13,7 +12,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateViewType,
       updateSearchTitle,
     },
     dispatch,

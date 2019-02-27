@@ -30,15 +30,14 @@ class SearchSongList extends Component {
           >
             <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
           </div>
-
-          <p
+          <div
             className="add-song"
             onClick={() => {
               this.props.addSongToLibrary(song.track.id)
             }}
           >
             {this.props.savedSongIds.some(r => song.track.id.includes(r)) === true ? <span> </span> : <p>+</p>}
-          </p>
+          </div>
 
           <div className="song-title">
             <p>{song.track.name}</p>

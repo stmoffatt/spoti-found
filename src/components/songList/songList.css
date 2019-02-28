@@ -182,3 +182,7 @@
 .tracklist-margin-left {
   margin-left: 20px;
 }
+
+.no-display {
+  display: none;
+}

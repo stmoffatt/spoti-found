@@ -1,60 +1,77 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import './songList.css'
 
-class SongList extends Component {
-  componentDidMount() {
-    this.props.fetchSongs()
-  }
-
-  msToMinutesAndSeconds(ms) {
+const SongList = ({
+  data,
+  audioControl,
+  songPaused,
+  songPlaying,
+  resumeSong,
+  pauseSong,
+  deleteTrack,
+  currentPlayingSong,
+  songId,
+  isLoggedIn,
+  savedSongIds,
+  addSongToLibrary,
+}) => {
+  const msToMinutesAndSeconds = ms => {
     const minutes = Math.floor(ms / 60000)
     const seconds = ((ms % 60000) / 1000).toFixed(0)
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
   }
 
-  renderSongs() {
-    return this.props.songs.length > 0 ? (
-      this.props.songs.map((song, i) => {
-        const buttonClass =
-          song.track.id === this.props.songId && !this.props.songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
+  const renderSongs = () => {
+    return data.length > 0 ? (
+      data.map((song, i) => {
+        const buttonClass = song.track.id === songId && !songPaused ? 'fa-pause-circle-o' : 'fa-play-circle-o'
 
         return (
-          <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={i}>
+          <li className={song.track.id === songId ? 'active user-song-item' : 'user-song-item'} key={i}>
             <div
               onClick={() => {
-                song.track.id === this.props.songId && this.props.songPlaying && this.props.songPaused
-                  ? this.props.resumeSong()
-                  : this.props.songPlaying && !this.props.songPaused && song.track.id === this.props.songId
-                  ? this.props.pauseSong()
-                  : this.props.audioControl(song)
-                this.props.currentPlayingSong(this.props.songs)
+                song.track.id === songId && songPlaying && songPaused
+                  ? resumeSong()
+                  : songPlaying && !songPaused && song.track.id === songId
+                  ? pauseSong()
+                  : audioControl(song)
+                currentPlayingSong(data)
               }}
               className="play-song"
             >
               <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
             </div>
 
+            <div
+              className="add-song"
+              onClick={() => {
+                addSongToLibrary(song.track.id)
+              }}
+            >
+              {savedSongIds.some(r => song.track.id.includes(r)) === true ? <span> </span> : <p>+</p>}
+            </div>
+
             <div className="song-title">
-              <p className="tracklist-margin-left">{song.track.name}</p>
+              <p>{song.track.name}</p>
             </div>
 
             <div className="song-artist">
-              <p className="tracklist-margin-left">{song.track.artists[0].name}</p>
+              <p>{song.track.artists[0].name}</p>
             </div>
 
             <div className="song-album">
-              <p className="tracklist-margin-left">{song.track.album.name}</p>
+              <p>{song.track.album.name}</p>
             </div>
 
-            <div className="song-length song-length-width">
-              <p className="tracklist-margin-left">{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
+            <div className="song-length">
+              <p>{msToMinutesAndSeconds(song.track.duration_ms)}</p>
             </div>
             <div
-              className="delete-button"
+              className={window.location.pathname === '/YourLibrary' ? 'delete-button' : 'no-display'}
               onClick={() => {
-                this.props.deleteTrack(song.track.id)
+                deleteTrack(song.track.id)
               }}
             >
               <p>-</p>
@@ -63,42 +80,40 @@ class SongList extends Component {
         )
       })
     ) : (
-      <span />
+      <div />
     )
   }
-
-  render() {
-    if (!this.props.isLoggedIn) return <Redirect to="/" />
-    return this.props.songs.length > 0 ? (
-      <div>
-        <div className="song-header-container">
-          <div className="song-title-header">
-            <p>Title</p>
-          </div>
-          <div className="song-artist-header">
-            <p>Artist</p>
-          </div>
-          <div className="song-album-header">
-            <p>Album</p>
-          </div>
-          <div className="song-length-header">
-            <p>
-              <i className="fa fa-clock-o" aria-hidden="true" />
-            </p>
-          </div>
+  if (!isLoggedIn) return <Redirect to="/" />
+  return data.length > 0 ? (
+    <div>
+      <div className="song-header-container">
+        <div className="song-title-header">
+          <p>Title</p>
         </div>
-        {this.props.songs && this.renderSongs()}
+        <div className="song-artist-header">
+          <p>Artist</p>
+        </div>
+        <div className="song-album-header">
+          <p>Album</p>
+        </div>
+        <div className="song-length-header">
+          <p>
+            <i className="fa fa-clock-o" aria-hidden="true" />
+          </p>
+        </div>
       </div>
-    ) : (
-      <span />
-    )
-  }
+      {data && renderSongs()}
+    </div>
+  ) : (
+    <div />
+  )
 }
 
 SongList.propTypes = {
   songId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  songs: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  fetchSongs: PropTypes.func,
+  data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  savedSongIds: PropTypes.array,
+  addSongToLibrary: PropTypes.func,
   audioControl: PropTypes.func,
   songPaused: PropTypes.bool,
   songPlaying: PropTypes.bool,

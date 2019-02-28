@@ -1,24 +1,23 @@
-import AlbumList from './component'
+import UserSongPage from './component'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { currentPlayingSong } from '../../actions/songActions'
+import { fetchSongs } from '../../actions/songActions'
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.tokenReducer.isLoggedIn,
+    songs: state.songsReducer.songs ? state.songsReducer.songs : '',
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      currentPlayingSong,
+      fetchSongs,
     },
     dispatch,
   )
 }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AlbumList)
+)(UserSongPage)

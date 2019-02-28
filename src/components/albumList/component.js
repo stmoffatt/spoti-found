@@ -1,15 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import './albumList.css'
-class AlbumList extends Component {
-  renderAlbums = () => {
-    return this.props.songs.length > 0 ? (
-      this.props.songs.map((song, i) => {
+
+const AlbumList = ({ data, audioControl, isLoggedIn, currentPlayingSong }) => {
+  const renderAlbums = () => {
+    return data.length > 0 ? (
+      data.map((song, i) => {
         return (
           <li
             onClick={() => {
-              this.props.audioControl(song)
+              audioControl(song)
+              currentPlayingSong(data)
             }}
             className="album-item"
             key={i}
@@ -34,15 +36,19 @@ class AlbumList extends Component {
       <span />
     )
   }
-  render() {
-    if (!this.props.isLoggedIn) return <Redirect to="/" />
-    return <ul className="album-view-container">{this.renderAlbums()}</ul>
-  }
+  if (!isLoggedIn) return <Redirect to="/" />
+  return (
+    <div>
+      <ul className="album-view-container">{renderAlbums()}</ul>
+    </div>
+  )
 }
+
 AlbumList.propTypes = {
-  songs: PropTypes.array,
+  data: PropTypes.array,
   audioControl: PropTypes.func,
   isLoggedIn: PropTypes.bool,
+  currentPlayingSong: PropTypes.func,
 }
 
 export default AlbumList

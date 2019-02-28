@@ -7,8 +7,6 @@ import { topTracks } from '../../actions/songActions'
 
 const mapStateToProps = state => {
   return {
-    artists: state.artistsReducer.artists ? state.artistsReducer.artists : '',
-    viewType: state.artistsReducer.viewType,
     user: state.userReducer.user,
     isLoggedIn: state.tokenReducer.isLoggedIn,
   }

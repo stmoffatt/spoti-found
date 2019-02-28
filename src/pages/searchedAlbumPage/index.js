@@ -1,4 +1,4 @@
-import SearchedAlbumList from './component'
+import SearchedAlbumPage from './component'
 import { connect } from 'react-redux'
 import uniqBy from 'lodash/uniqBy'
 
@@ -11,8 +11,7 @@ const mapStateToProps = state => {
 
   return {
     songs: albumSongs,
-    isLoggedIn: state.tokenReducer.isLoggedIn,
   }
 }
 
-export default connect(mapStateToProps)(SearchedAlbumList)
+export default connect(mapStateToProps)(SearchedAlbumPage)

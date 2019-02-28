@@ -54,7 +54,12 @@ export const fetchSongs = () => {
         dispatch(setSongIds(savedSongIds))
 
         spotifyApi.getArtists([`${artistIds}`]).then(data => {
-          dispatch(fetchArtistsSuccess(data))
+          data.artists = data.artists.map(item => {
+            return {
+              artist: item,
+            }
+          })
+          dispatch(fetchArtistsSuccess(data.artists))
         })
 
         const newRes = res.items.map(item => {

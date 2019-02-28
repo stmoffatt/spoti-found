@@ -7,17 +7,17 @@ import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions
 import './App.css'
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
-import YourLibraryNavigation from './components/yourLibraryNavigation'
-import SearchNavigation from './components/searchNavigation'
+import YourLibraryNavigation from './pages/yourLibraryNavigation'
+import SearchNavigation from './pages/searchNavigation'
 import TrackSearch from './components/trackSearch'
-import SongList from './components/songList'
-import AlbumList from './components/albumList'
-import MyArtistList from './components/myArtistsList'
-import SearchSongList from './components/searchSongList'
-import SearchAlbumList from './components/searchedAlbumList'
-import ArtistList from './components/artistList'
-import ArtistMain from './components/artistMain'
-import AlbumSongList from './components/albumSongList'
+import UserSongsPage from './pages/userSongPage'
+import UserAlbumPage from './pages/userAlbumPage'
+import UserArtistPage from './pages/userArtistPage'
+import SearchSongPage from './pages/searchSongPage'
+import SearchAlbumPage from './pages/searchedAlbumPage'
+import SearchArtistPage from './pages/searchArtistPage'
+import ArtistMain from './pages/artistMain'
+import AlbumSongList from './pages/albumSongList'
 import Login from './login'
 
 class App extends Component {
@@ -109,22 +109,24 @@ class App extends Component {
                 exact
                 path="/YourLibrary"
                 render={props => (
-                  <SongList resumeSong={this.resumeSong} pauseSong={this.pauseSong} audioControl={this.audioControl} />
+                  <UserSongsPage
+                    resumeSong={this.resumeSong}
+                    pauseSong={this.pauseSong}
+                    audioControl={this.audioControl}
+                  />
                 )}
               />
               <Route
                 exact
                 path="/YourLibrary/Albums"
-                render={props => (
-                  <AlbumList resumeSong={this.resumeSong} pauseSong={this.pauseSong} audioControl={this.audioControl} />
-                )}
+                render={props => <UserAlbumPage audioControl={this.audioControl} />}
               />
-              <Route exact path="/YourLibrary/Artists" render={props => <MyArtistList />} />
+              <Route exact path="/YourLibrary/Artists" render={props => <UserArtistPage />} />
               <Route
                 exact
                 path="/Search"
                 render={props => (
-                  <SearchSongList
+                  <SearchSongPage
                     resumeSong={this.resumeSong}
                     pauseSong={this.pauseSong}
                     audioControl={this.audioControl}
@@ -134,9 +136,9 @@ class App extends Component {
               <Route
                 exact
                 path="/Search/Albums"
-                render={props => <SearchAlbumList audioControl={this.audioControl} />}
+                render={props => <SearchAlbumPage audioControl={this.audioControl} />}
               />
-              <Route exact path="/Search/Artists" render={props => <ArtistList />} />
+              <Route exact path="/Search/Artists" render={props => <SearchArtistPage />} />
               <Route
                 exact
                 path="/ArtistMain"

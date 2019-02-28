@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter, Redirect } from 'react-router-dom'
 import './artistList.css'
 
-class ArtistList extends Component {
-  renderSongs() {
-    return this.props.artists.length > 0 ? (
-      this.props.artists.map((artist, i) => {
+const ArtistList = ({ data, searchAlbums, getArtist, topTracks, user, history, isLoggedIn }) => {
+  const renderSongs = () => {
+    return data.length > 0 ? (
+      data.map((artist, i) => {
         const handleClick = () => {
-          this.props.searchAlbums(artist.artist.id)
-          this.props.getArtist(artist.artist.id)
-          this.props.topTracks(artist.artist.id, this.props.user.country)
+          searchAlbums(artist.artist.id)
+          getArtist(artist.artist.id)
+          topTracks(artist.artist.id, user.country)
           setTimeout(() => {
             window.scrollTo(0, 0)
-            this.props.history.push('/ArtistMain')
+            history.push('/ArtistMain')
           }, 500)
         }
         return (
@@ -40,14 +40,11 @@ class ArtistList extends Component {
       <span />
     )
   }
-
-  render() {
-    if (!this.props.isLoggedIn) return <Redirect to="/" />
-    return <ul className="artist-view-container">{this.renderSongs()}</ul>
-  }
+  if (!isLoggedIn) return <Redirect to="/" />
+  return <ul className="artist-view-container">{renderSongs()}</ul>
 }
 ArtistList.propTypes = {
-  artists: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   user: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   searchAlbums: PropTypes.func,
   getArtist: PropTypes.func,

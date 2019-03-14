@@ -36,7 +36,7 @@ const AlbumList = ({ data, audioControl, isLoggedIn, currentPlayingSong }) => {
       <span />
     )
   }
-  if (!isLoggedIn) return <Redirect to="/" />
+  if (!isLoggedIn) return <Redirect to="/Login" />
   return (
     <div>
       <ul className="album-view-container">{renderAlbums()}</ul>
@@ -45,7 +45,7 @@ const AlbumList = ({ data, audioControl, isLoggedIn, currentPlayingSong }) => {
 }
 
 AlbumList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   audioControl: PropTypes.func,
   isLoggedIn: PropTypes.bool,
   currentPlayingSong: PropTypes.func,

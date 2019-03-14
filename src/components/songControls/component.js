@@ -9,19 +9,20 @@ class SongControls extends Component {
     timeElapsed: this.props.timeElapsed,
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.songPlaying) {
+  componentDidUpdate(prevProps) {
+    if (!this.props.songPlaying) {
       clearInterval(this.state.intervalId)
     }
+    if (prevProps !== this.props) {
+      if (this.props.songPlaying && this.props.timeElapsed === 0) {
+        clearInterval(this.state.intervalId)
+        this.calculateTime()
+      }
 
-    if (nextProps.songPlaying && nextProps.timeElapsed === 0) {
-      clearInterval(this.state.intervalId)
-      this.calculateTime()
+      this.setState({
+        timeElapsed: this.props.timeElapsed,
+      })
     }
-
-    this.setState({
-      timeElapsed: nextProps.timeElapsed,
-    })
   }
 
   calculateTime() {

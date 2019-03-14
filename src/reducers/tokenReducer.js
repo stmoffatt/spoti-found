@@ -1,4 +1,7 @@
-export const tokenReducer = (state = {}, action) => {
+const defaultState = {
+  isLoggedIn: false,
+}
+export const tokenReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'SET_TOKEN':
       return {

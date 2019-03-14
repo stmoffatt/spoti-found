@@ -7,8 +7,8 @@ import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions
 import './App.css'
 import Footer from './components/footer'
 import SideMenu from './components/sideMenu'
-import YourLibraryNavigation from './pages/yourLibraryNavigation'
-import SearchNavigation from './pages/searchNavigation'
+import YourLibraryNavigation from './components/yourLibraryNavigation'
+import SearchNavigation from './components/searchNavigation'
 import TrackSearch from './components/trackSearch'
 import UserSongsPage from './pages/userSongPage'
 import UserAlbumPage from './pages/userAlbumPage'
@@ -16,16 +16,17 @@ import UserArtistPage from './pages/userArtistPage'
 import SearchSongPage from './pages/searchSongPage'
 import SearchAlbumPage from './pages/searchedAlbumPage'
 import SearchArtistPage from './pages/searchArtistPage'
-import ArtistMain from './pages/artistMain'
-import AlbumSongList from './pages/albumSongList'
-import Login from './login'
+import ArtistMain from './pages/artistMainPage'
+import AlbumSongList from './pages/albumSongListPage'
+import Login from './pages/loginPage'
+import DemoPage from './pages/demoPage'
 
 class App extends Component {
   static audio
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     if (this.audio) {
-      this.audio.volume = nextProps.volume / 100
+      this.audio.volume = this.props.volume / 100
     }
   }
 
@@ -85,90 +86,96 @@ class App extends Component {
       this.props.location.pathname === '/YourLibrary/Artists'
         ? ''
         : 'no-display'
-
+    const displayLogin = this.props.location.pathname === '/' ? '' : 'no-display'
+    const notDisplayLogin = this.props.location.pathname === '/' ? 'no-display' : ''
     return (
-      <div className="App">
-        <Route exact path="/" component={Login} />
-        <div className={displaySearch}>
-          <TrackSearch />
+      <div>
+        <div className={displayLogin}>
+          <Route exact path="/" component={DemoPage} />
         </div>
-        <div className="app-container">
-          <div className="left-side-section">
-            <SideMenu />
+        <div className={('App', notDisplayLogin)}>
+          <div className={displaySearch}>
+            <TrackSearch />
           </div>
+          <div className="app-container">
+            <div className="left-side-section">
+              <SideMenu />
+            </div>
 
-          <div className="main-section">
-            <div className={displayYourLibrary}>
-              <YourLibraryNavigation />
+            <div className="main-section">
+              <div className={displayYourLibrary}>
+                <YourLibraryNavigation />
+              </div>
+              <div className={displaySearch}>
+                <SearchNavigation />
+              </div>
+              <div className="main-section-container">
+                <Route exact path="/Login" component={Login} />
+                <Route
+                  exact
+                  path="/YourLibrary"
+                  render={props => (
+                    <UserSongsPage
+                      resumeSong={this.resumeSong}
+                      pauseSong={this.pauseSong}
+                      audioControl={this.audioControl}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/YourLibrary/Albums"
+                  render={props => <UserAlbumPage audioControl={this.audioControl} />}
+                />
+                <Route exact path="/YourLibrary/Artists" component={UserArtistPage} />
+                <Route
+                  exact
+                  path="/Search"
+                  render={props => (
+                    <SearchSongPage
+                      resumeSong={this.resumeSong}
+                      pauseSong={this.pauseSong}
+                      audioControl={this.audioControl}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/Search/Albums"
+                  render={props => <SearchAlbumPage audioControl={this.audioControl} />}
+                />
+                <Route exact path="/Search/Artists" component={SearchArtistPage} />
+                <Route
+                  exact
+                  path="/ArtistMain"
+                  render={props => (
+                    <ArtistMain
+                      resumeSong={this.resumeSong}
+                      pauseSong={this.pauseSong}
+                      audioControl={this.audioControl}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/AlbumMain"
+                  render={props => (
+                    <AlbumSongList
+                      resumeSong={this.resumeSong}
+                      pauseSong={this.pauseSong}
+                      audioControl={this.audioControl}
+                    />
+                  )}
+                />
+              </div>
             </div>
-            <div className={displaySearch}>
-              <SearchNavigation />
-            </div>
-            <div className="main-section-container">
-              <Route
-                exact
-                path="/YourLibrary"
-                render={props => (
-                  <UserSongsPage
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/YourLibrary/Albums"
-                render={props => <UserAlbumPage audioControl={this.audioControl} />}
-              />
-              <Route exact path="/YourLibrary/Artists" render={props => <UserArtistPage />} />
-              <Route
-                exact
-                path="/Search"
-                render={props => (
-                  <SearchSongPage
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/Search/Albums"
-                render={props => <SearchAlbumPage audioControl={this.audioControl} />}
-              />
-              <Route exact path="/Search/Artists" render={props => <SearchArtistPage />} />
-              <Route
-                exact
-                path="/ArtistMain"
-                render={props => (
-                  <ArtistMain
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/AlbumMain"
-                render={props => (
-                  <AlbumSongList
-                    resumeSong={this.resumeSong}
-                    pauseSong={this.pauseSong}
-                    audioControl={this.audioControl}
-                  />
-                )}
-              />
-            </div>
+            <Footer
+              stopSong={this.stopSong}
+              pauseSong={this.pauseSong}
+              resumeSong={this.resumeSong}
+              audioControl={this.audioControl}
+            />
           </div>
-          <Footer
-            stopSong={this.stopSong}
-            pauseSong={this.pauseSong}
-            resumeSong={this.resumeSong}
-            audioControl={this.audioControl}
-          />
         </div>
       </div>
     )
@@ -181,11 +188,13 @@ App.propTypes = {
   stopSong: PropTypes.func,
   resumeSong: PropTypes.func,
   volume: PropTypes.number,
+  token: PropTypes.string,
 }
 
 const mapStateToProps = state => {
   return {
     volume: state.soundReducer.volume,
+    token: state.tokenReducer.token,
   }
 }
 

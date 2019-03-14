@@ -31,11 +31,6 @@ class TrackSearch extends Component {
           }}
         >
           <input onChange={this.updateSearchText} type="text" placeholder="Search..." />
-          <button
-            onChange={e => {
-              this.handleChange(e)
-            }}
-          />
         </form>
       </div>
     )

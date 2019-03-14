@@ -83,7 +83,7 @@ const SongList = ({
       <div />
     )
   }
-  if (!isLoggedIn) return <Redirect to="/" />
+  if (!isLoggedIn) return <Redirect to="/Login" />
   return data.length > 0 ? (
     <div>
       <div className="song-header-container">

@@ -1,0 +1,30 @@
+.no-display {
+  display: none;
+}
+
+.search-menu-item {
+  display: inline;
+  list-style-type: none;
+  line-height: 28px;
+  font-size: 25px;
+  margin-left: 30px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-menu-container .active {
+  padding-bottom: 1px;
+  border-bottom: 2px solid rgb(69, 216, 216);
+}
+
+.search-menu-container {
+  padding: 20px;
+  color: rgb(179, 179, 179);
+  margin: 0;
+}
+
+a:-webkit-any-link {
+  color: rgb(179, 179, 179);
+  text-decoration-line: none;
+}

@@ -1,0 +1,65 @@
+.gifBox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.gif {
+  position: absolute;
+  opacity: 0.35;
+  -moz-opacity: 0.35;
+  filter: alpha(opacity=35);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .gif {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .gif {
+    width: 300%;
+    left: -100%;
+    height: 115%;
+  }
+}
+
+.loginButton {
+  display: block;
+  opacity: 0.94;
+  -moz-opacity: 0.94;
+  filter: alpha(opacity=94);
+  padding: 40px 100px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  font-family: 'Proxima Thin', Georgia, sans-serif;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .gifBox {
+    background: url('../../images/frame.png') center center / cover no-repeat;
+    opacity: 0.35;
+    -moz-opacity: 0.35;
+    filter: alpha(opacity=35);
+  }
+
+  .gif {
+    display: none;
+  }
+}
+
+.loginContainer {
+  padding-top: 40vh;
+}

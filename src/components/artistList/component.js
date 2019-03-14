@@ -40,7 +40,7 @@ const ArtistList = ({ data, searchAlbums, getArtist, topTracks, user, history, i
       <span />
     )
   }
-  if (!isLoggedIn) return <Redirect to="/" />
+  if (!isLoggedIn) return <Redirect to="/Login" />
   return <ul className="artist-view-container">{renderSongs()}</ul>
 }
 ArtistList.propTypes = {

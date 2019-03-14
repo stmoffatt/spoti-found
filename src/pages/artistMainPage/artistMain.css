@@ -1,0 +1,26 @@
+.current-artist-header-container {
+  display: flex;
+}
+
+.current-artist-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+
+.current-artist {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 50px;
+}
+.current-artist-info {
+  padding-top: 20px;
+  text-align: center;
+}
+.current-artist-info p {
+  font-family: 'Proxima Thin', Georgia, sans-serif;
+  font-size: 13px;
+  color: rgb(179, 179, 179);
+}

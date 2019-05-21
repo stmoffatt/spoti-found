@@ -63,7 +63,7 @@ class SongControls extends Component {
       return
     } else {
       let currentIndex = this.getSongIndex()
-      currentIndex === songs.length - 1
+      currentIndex === CurrentPlayingSongList.length - 1
         ? audioControl(CurrentPlayingSongList[0])
         : audioControl(CurrentPlayingSongList[currentIndex + 1])
     }

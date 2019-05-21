@@ -10,7 +10,7 @@ const DemoPage = ({ history }) => {
   return (
     <div>
       <div className="gifBox">
-        <video loop muted autoPlay preload="none" alt="SpotiFound-Gif" className="gif">
+        <video loop muted autoPlay alt="SpotiFound-Gif" className="gif">
           <source src={DemoGif} type="video/mp4" />
         </video>
       </div>
